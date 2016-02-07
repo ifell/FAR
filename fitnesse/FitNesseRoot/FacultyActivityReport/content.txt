@@ -1,0 +1,5 @@
+!define TEST_SYSTEM {slim}
+!define COMMAND_PATTERN {./node_modules/decaf/bin/decaf-js %p}
+!path ./far/test/fixtures
+
+!contents -R3 -g -p -f -h

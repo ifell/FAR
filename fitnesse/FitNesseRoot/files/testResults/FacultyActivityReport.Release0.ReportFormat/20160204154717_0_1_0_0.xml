@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<suiteResults>
+  <FitNesseVersion>v20151230</FitNesseVersion>
+  <rootPath>FacultyActivityReport.Release0.ReportFormat</rootPath>
+  <pageHistoryReference>
+    <name>FacultyActivityReport.Release0.ReportFormat.CreateANewReport</name>
+    <date>2016-02-04T15:47:17-05:00</date>
+    <pageHistoryLink>FacultyActivityReport.Release0.ReportFormat.CreateANewReport?pageHistory&amp;resultDate=20160204154717</pageHistoryLink>
+    <counts>
+      <right>0</right>
+      <wrong>3</wrong>
+      <ignores>0</ignores>
+      <exceptions>1</exceptions>
+    </counts>
+    <runTimeInMillis>38</runTimeInMillis>
+  </pageHistoryReference>
+  <executionLog>
+    <testSystem>slim:fitnesse.slim.SlimService</testSystem>
+    <command>./node_modules/decaf/bin/decaf-js ./far/test/fixtures 8089</command>
+    <exitCode>0</exitCode>
+    <stdOut></stdOut>
+    <stdErr></stdErr>
+  </executionLog>
+  <finalCounts>
+    <right>0</right>
+    <wrong>1</wrong>
+    <ignores>0</ignores>
+    <exceptions>0</exceptions>
+  </finalCounts>
+  <totalRunTimeInMillis>308</totalRunTimeInMillis>
+</suiteResults>
+

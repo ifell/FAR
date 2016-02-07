@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<suiteResults>
+  <FitNesseVersion>v20151230</FitNesseVersion>
+  <rootPath>FacultyActivityReport.Release1</rootPath>
+  <pageHistoryReference>
+    <name>FacultyActivityReport.Release1.PresentEditableReports</name>
+    <date>2016-02-03T08:23:22-05:00</date>
+    <pageHistoryLink>FacultyActivityReport.Release1.PresentEditableReports?pageHistory&amp;resultDate=20160203082322</pageHistoryLink>
+    <counts>
+      <right>0</right>
+      <wrong>1</wrong>
+      <ignores>0</ignores>
+      <exceptions>10</exceptions>
+    </counts>
+    <runTimeInMillis>44</runTimeInMillis>
+  </pageHistoryReference>
+  <pageHistoryReference>
+    <name>FacultyActivityReport.Release1.PresentNoReports</name>
+    <date>2016-02-03T08:23:22-05:00</date>
+    <pageHistoryLink>FacultyActivityReport.Release1.PresentNoReports?pageHistory&amp;resultDate=20160203082322</pageHistoryLink>
+    <counts>
+      <right>1</right>
+      <wrong>1</wrong>
+      <ignores>0</ignores>
+      <exceptions>0</exceptions>
+    </counts>
+    <runTimeInMillis>17</runTimeInMillis>
+  </pageHistoryReference>
+  <pageHistoryReference>
+    <name>FacultyActivityReport.Release1.PresentViewableReports</name>
+    <date>2016-02-03T08:23:22-05:00</date>
+    <pageHistoryLink>FacultyActivityReport.Release1.PresentViewableReports?pageHistory&amp;resultDate=20160203082322</pageHistoryLink>
+    <counts>
+      <right>0</right>
+      <wrong>1</wrong>
+      <ignores>0</ignores>
+      <exceptions>10</exceptions>
+    </counts>
+    <runTimeInMillis>27</runTimeInMillis>
+  </pageHistoryReference>
+  <executionLog>
+    <testSystem>slim:fitnesse.slim.SlimService</testSystem>
+    <command>./node_modules/decaf/bin/decaf-js ./far/test/fixtures 8085</command>
+    <exitCode>0</exitCode>
+    <stdOut></stdOut>
+    <stdErr></stdErr>
+  </executionLog>
+  <finalCounts>
+    <right>0</right>
+    <wrong>3</wrong>
+    <ignores>0</ignores>
+    <exceptions>0</exceptions>
+  </finalCounts>
+  <totalRunTimeInMillis>373</totalRunTimeInMillis>
+</suiteResults>
+

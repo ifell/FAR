@@ -1,0 +1,9 @@
+{
+  "spec_dir": "./far/test/usecases",
+  "spec_files": [
+    "./**/*.spec.js"
+  ],
+  "helpers": [
+  ]
+}
+

@@ -1,0 +1,390 @@
+<?xml version="1.0"?>
+<testResults>
+  <FitNesseVersion>v20151230</FitNesseVersion>
+  <rootPath>FacultyActivityReport.Release1.PresentEditableReports</rootPath>
+    <result>
+    <counts>
+      <right>0</right>
+      <wrong>1</wrong>
+      <ignores>0</ignores>
+      <exceptions>11</exceptions>
+    </counts>
+    <date>2016-02-03T08:17:10-05:00</date>
+    <runTimeInMillis>70</runTimeInMillis>
+    <content>&lt;div class="collapsible closed"&gt;&lt;ul&gt;&lt;li&gt;&lt;a href='#' class='expandall'&gt;Expand&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href='#' class='collapseall'&gt;Collapse&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;
+	&lt;p class="title"&gt;Included page: &lt;a href="FacultyActivityReport.ScenarioLibrary"&gt;.FacultyActivityReport.ScenarioLibrary&lt;/a&gt; &lt;a href="FacultyActivityReport.ScenarioLibrary?edit&amp;amp;redirectToReferer=true&amp;amp;redirectAction=" class="edit"&gt;(edit)&lt;/a&gt;&lt;/p&gt;
+	&lt;div&gt;&lt;table&gt;
+	&lt;tr class="slimRowTitle"&gt;
+		&lt;td&gt;scenario&lt;/td&gt;
+		&lt;td&gt;given no reports&lt;/td&gt;
+	&lt;/tr&gt;
+	&lt;tr class="slimRowColor4"&gt;
+		&lt;td colspan="2"&gt;clear reports&lt;/td&gt;
+	&lt;/tr&gt;
+&lt;/table&gt;
+&lt;br/&gt;&lt;table&gt;
+	&lt;tr class="slimRowTitle"&gt;
+		&lt;td&gt;scenario&lt;/td&gt;
+		&lt;td&gt;with user _ logged in&lt;/td&gt;
+		&lt;td&gt;user&lt;/td&gt;
+	&lt;/tr&gt;
+	&lt;tr class="slimRowColor6"&gt;
+		&lt;td&gt;login user&lt;/td&gt;
+		&lt;td colspan="2"&gt;@user&lt;/td&gt;
+	&lt;/tr&gt;
+&lt;/table&gt;
+&lt;br/&gt;&lt;table&gt;
+	&lt;tr class="slimRowTitle"&gt;
+		&lt;td&gt;scenario&lt;/td&gt;
+		&lt;td&gt;and with permissions for _ to view _&lt;/td&gt;
+		&lt;td colspan="2"&gt;user,report&lt;/td&gt;
+	&lt;/tr&gt;
+	&lt;tr class="slimRowColor5"&gt;
+		&lt;td&gt;add permission for&lt;/td&gt;
+		&lt;td&gt;@user&lt;/td&gt;
+		&lt;td&gt;viewing&lt;/td&gt;
+		&lt;td&gt;@report&lt;/td&gt;
+	&lt;/tr&gt;
+&lt;/table&gt;
+&lt;br/&gt;&lt;table&gt;
+	&lt;tr class="slimRowTitle"&gt;
+		&lt;td&gt;scenario&lt;/td&gt;
+		&lt;td&gt;and with permissions for _ to edit _&lt;/td&gt;
+		&lt;td colspan="2"&gt;user,report&lt;/td&gt;
+	&lt;/tr&gt;
+	&lt;tr class="slimRowColor6"&gt;
+		&lt;td&gt;create permission for&lt;/td&gt;
+		&lt;td&gt;@user&lt;/td&gt;
+		&lt;td&gt;editing&lt;/td&gt;
+		&lt;td&gt;@report&lt;/td&gt;
+	&lt;/tr&gt;
+&lt;/table&gt;
+&lt;br/&gt;&lt;table&gt;
+	&lt;tr class="slimRowTitle"&gt;
+		&lt;td&gt;scenario&lt;/td&gt;
+		&lt;td&gt;then the following reports will be presented for _&lt;/td&gt;
+		&lt;td&gt;user&lt;/td&gt;
+	&lt;/tr&gt;
+	&lt;tr class="slimRowColor0"&gt;
+		&lt;td&gt;check&lt;/td&gt;
+		&lt;td&gt;presentation user&lt;/td&gt;
+		&lt;td&gt;@user&lt;/td&gt;
+	&lt;/tr&gt;
+&lt;/table&gt;
+&lt;br/&gt;&lt;table&gt;
+	&lt;tr class="slimRowTitle"&gt;
+		&lt;td&gt;scenario&lt;/td&gt;
+		&lt;td colspan="2"&gt;there will be no reports presented&lt;/td&gt;
+	&lt;/tr&gt;
+	&lt;tr class="slimRowColor0"&gt;
+		&lt;td&gt;check&lt;/td&gt;
+		&lt;td&gt;count of reports presented&lt;/td&gt;
+		&lt;td&gt;0&lt;/td&gt;
+	&lt;/tr&gt;
+&lt;/table&gt;
+&lt;br/&gt;&lt;table&gt;
+	&lt;tr class="slimRowTitle"&gt;
+		&lt;td&gt;scenario&lt;/td&gt;
+		&lt;td&gt;given user _&lt;/td&gt;
+		&lt;td&gt;user&lt;/td&gt;
+	&lt;/tr&gt;
+	&lt;tr class="slimRowColor6"&gt;
+		&lt;td&gt;add user&lt;/td&gt;
+		&lt;td colspan="2"&gt;@user&lt;/td&gt;
+	&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="collapsible closed"&gt;&lt;ul&gt;&lt;li&gt;&lt;a href='#' class='expandall'&gt;Expand&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href='#' class='collapseall'&gt;Collapse&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;
+	&lt;p class="title"&gt;Included page: &lt;a href="FacultyActivityReport.SetUp"&gt;.FacultyActivityReport.SetUp&lt;/a&gt; &lt;a href="FacultyActivityReport.SetUp?edit&amp;amp;redirectToReferer=true&amp;amp;redirectAction=" class="edit"&gt;(edit)&lt;/a&gt;&lt;/p&gt;
+	&lt;div&gt;&lt;table&gt;
+	&lt;tr class="slimRowTitle"&gt;
+		&lt;td&gt;import&lt;/td&gt;
+	&lt;/tr&gt;
+	&lt;tr class="slimRowColor0"&gt;
+		&lt;td&gt;&lt;span class="pass"&gt;Fixtures&lt;/span&gt;&lt;/td&gt;
+	&lt;/tr&gt;
+&lt;/table&gt;
+&lt;br/&gt;&lt;table&gt;
+	&lt;tr class="slimRowTitle"&gt;
+		&lt;td&gt;library&lt;/td&gt;
+	&lt;/tr&gt;
+	&lt;tr class="slimRowColor0"&gt;
+		&lt;td&gt;&lt;span class="pass"&gt;report presentation&lt;/span&gt;&lt;/td&gt;
+	&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;br/&gt;&lt;table&gt;
+	&lt;tr&gt;
+		&lt;td colspan="3"&gt;Given Reports &lt;span class="error"&gt;TypeError: Cannot read property 'GivenReports' of undefined&lt;/span&gt;&lt;/td&gt;
+	&lt;/tr&gt;
+	&lt;tr&gt;
+		&lt;td&gt;identifier&lt;/td&gt;
+		&lt;td&gt;name&lt;/td&gt;
+		&lt;td&gt;tenure&lt;/td&gt;
+	&lt;/tr&gt;
+	&lt;tr&gt;
+		&lt;td&gt;AVDSpr13 &lt;span class="error"&gt;property not found identifier&lt;/span&gt;&lt;/td&gt;
+		&lt;td&gt;Alin V. Dobra &lt;span class="error"&gt;property not found name&lt;/span&gt;&lt;/td&gt;
+		&lt;td&gt;Tenured &lt;span class="error"&gt;property not found tenure&lt;/span&gt;&lt;/td&gt;
+	&lt;/tr&gt;
+	&lt;tr&gt;
+		&lt;td&gt;AVDSpr14 &lt;span class="error"&gt;property not found identifier&lt;/span&gt;&lt;/td&gt;
+		&lt;td&gt;Alin V. Dobra &lt;span class="error"&gt;property not found name&lt;/span&gt;&lt;/td&gt;
+		&lt;td&gt;Tenured &lt;span class="error"&gt;property not found tenure&lt;/span&gt;&lt;/td&gt;
+	&lt;/tr&gt;
+	&lt;tr&gt;
+		&lt;td&gt;AVDSpr15 &lt;span class="error"&gt;property not found identifier&lt;/span&gt;&lt;/td&gt;
+		&lt;td&gt;Alin V. Dobra &lt;span class="error"&gt;property not found name&lt;/span&gt;&lt;/td&gt;
+		&lt;td&gt;Tenured &lt;span class="error"&gt;property not found tenure&lt;/span&gt;&lt;/td&gt;
+	&lt;/tr&gt;
+&lt;/table&gt;
+&lt;br/&gt;&lt;table&gt;
+	&lt;tr class="hidden" class="slimRowTitle"&gt;
+		&lt;td&gt;script&lt;/td&gt;
+	&lt;/tr&gt;
+	&lt;tr class="scenario closed"&gt;
+		&lt;td class="ignore"&gt;given user U&lt;/td&gt;
+	&lt;/tr&gt;&lt;tr class="scenario-detail closed-detail"&gt;&lt;td colspan="1"&gt;&lt;table&gt;
+	&lt;tr class="slimRowTitle"&gt;
+		&lt;td&gt;scenario&lt;/td&gt;
+		&lt;td&gt;given user _&lt;/td&gt;
+		&lt;td&gt;user&lt;/td&gt;
+	&lt;/tr&gt;
+	&lt;tr class="slimRowColor6"&gt;
+		&lt;td&gt;add user&lt;/td&gt;
+		&lt;td colspan="2"&gt;U&lt;/td&gt;
+	&lt;/tr&gt;
+&lt;/table&gt;&lt;/td&gt;&lt;/tr&gt;
+	&lt;tr class="scenario closed"&gt;
+		&lt;td class="ignore"&gt;with user U logged in&lt;/td&gt;
+	&lt;/tr&gt;&lt;tr class="scenario-detail closed-detail"&gt;&lt;td colspan="1"&gt;&lt;table&gt;
+	&lt;tr class="slimRowTitle"&gt;
+		&lt;td&gt;scenario&lt;/td&gt;
+		&lt;td&gt;with user _ logged in&lt;/td&gt;
+		&lt;td&gt;user&lt;/td&gt;
+	&lt;/tr&gt;
+	&lt;tr class="slimRowColor6"&gt;
+		&lt;td&gt;login user&lt;/td&gt;
+		&lt;td colspan="2"&gt;U&lt;/td&gt;
+	&lt;/tr&gt;
+&lt;/table&gt;&lt;/td&gt;&lt;/tr&gt;
+	&lt;tr class="scenario closed"&gt;
+		&lt;td class="error"&gt;and with permissions for U to edit AVDSpr13&lt;/td&gt;
+	&lt;/tr&gt;&lt;tr class="scenario-detail closed-detail"&gt;&lt;td colspan="1"&gt;&lt;table&gt;
+	&lt;tr class="slimRowTitle"&gt;
+		&lt;td&gt;scenario&lt;/td&gt;
+		&lt;td&gt;and with permissions for _ to edit _&lt;/td&gt;
+		&lt;td colspan="2"&gt;user,report&lt;/td&gt;
+	&lt;/tr&gt;
+	&lt;tr class="slimRowColor6"&gt;
+		&lt;td&gt;create permission for &lt;span class="error"&gt;property not found createPermissionForEditing&lt;/span&gt;&lt;/td&gt;
+		&lt;td&gt;U&lt;/td&gt;
+		&lt;td&gt;editing&lt;/td&gt;
+		&lt;td&gt;AVDSpr13&lt;/td&gt;
+	&lt;/tr&gt;
+&lt;/table&gt;&lt;/td&gt;&lt;/tr&gt;
+	&lt;tr class="scenario closed"&gt;
+		&lt;td class="fail"&gt;then the following reports will be presented for U&lt;/td&gt;
+	&lt;/tr&gt;&lt;tr class="scenario-detail closed-detail"&gt;&lt;td colspan="1"&gt;&lt;table&gt;
+	&lt;tr class="slimRowTitle"&gt;
+		&lt;td&gt;scenario&lt;/td&gt;
+		&lt;td&gt;then the following reports will be presented for _&lt;/td&gt;
+		&lt;td&gt;user&lt;/td&gt;
+	&lt;/tr&gt;
+	&lt;tr class="slimRowColor0"&gt;
+		&lt;td&gt;check&lt;/td&gt;
+		&lt;td&gt;presentation user&lt;/td&gt;
+		&lt;td&gt;[] &lt;span class="fail"&gt;expected [&lt;/span&gt;&lt;span class="diff"&gt;U&lt;/span&gt;&lt;span class="fail"&gt;]&lt;/span&gt;&lt;/td&gt;
+	&lt;/tr&gt;
+&lt;/table&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+</content>
+    <relativePageName>PresentEditableReports</relativePageName>
+            <instructions>
+            <instructionResult>
+        <instruction>{id='import_7_0', instruction='import', path='Fixtures'}</instruction>
+        <slimResult>pass(Fixtures)</slimResult>
+                <expectation>
+                    <status>pass</status>
+                    <instructionId>import_7_0</instructionId>
+                    <col>0</col>
+                              <row>1</row>
+                    <type>ImportExpectation</type>
+                                        <evaluationMessage>Fixtures</evaluationMessage>
+                  </expectation>
+              </instructionResult>
+            <instructionResult>
+        <instruction>{id='library_8_0', instruction='make', instanceName='library1', className='ReportPresentation', args=[]}</instruction>
+        <slimResult>pass(report presentation)</slimResult>
+                <expectation>
+                    <status>pass</status>
+                    <instructionId>library_8_0</instructionId>
+                    <col>0</col>
+                              <row>1</row>
+                    <type>ConstructionExpectation</type>
+                                        <evaluationMessage>report presentation</evaluationMessage>
+                  </expectation>
+              </instructionResult>
+            <instructionResult>
+        <instruction>{id='decisionTable_9_0', instruction='make', instanceName='decisionTable_9', className='GivenReports', args=[]}</instruction>
+        <slimResult></slimResult>
+                <expectation>
+                    <status>error</status>
+                    <instructionId>decisionTable_9_0</instructionId>
+                              <type>ConstructionExpectation</type>
+                                        <evaluationMessage>TypeError: Cannot read property 'GivenReports' of undefined</evaluationMessage>
+                  </expectation>
+              </instructionResult>
+            <instructionResult>
+        <instruction>{id='decisionTable_9_4', instruction='call', instanceName='decisionTable_9', methodName='setIdentifier', args=[AVDSpr13]}</instruction>
+        <slimResult></slimResult>
+                <expectation>
+                    <status>error</status>
+                    <instructionId>decisionTable_9_4</instructionId>
+                              <type>VoidReturnExpectation</type>
+                                        <evaluationMessage>property not found identifier</evaluationMessage>
+                  </expectation>
+              </instructionResult>
+            <instructionResult>
+        <instruction>{id='decisionTable_9_5', instruction='call', instanceName='decisionTable_9', methodName='setName', args=[Alin V. Dobra]}</instruction>
+        <slimResult></slimResult>
+                <expectation>
+                    <status>error</status>
+                    <instructionId>decisionTable_9_5</instructionId>
+                              <type>VoidReturnExpectation</type>
+                                        <evaluationMessage>property not found name</evaluationMessage>
+                  </expectation>
+              </instructionResult>
+            <instructionResult>
+        <instruction>{id='decisionTable_9_6', instruction='call', instanceName='decisionTable_9', methodName='setTenure', args=[Tenured]}</instruction>
+        <slimResult></slimResult>
+                <expectation>
+                    <status>error</status>
+                    <instructionId>decisionTable_9_6</instructionId>
+                              <type>VoidReturnExpectation</type>
+                                        <evaluationMessage>property not found tenure</evaluationMessage>
+                  </expectation>
+              </instructionResult>
+            <instructionResult>
+        <instruction>{id='decisionTable_9_9', instruction='call', instanceName='decisionTable_9', methodName='setIdentifier', args=[AVDSpr14]}</instruction>
+        <slimResult></slimResult>
+                <expectation>
+                    <status>error</status>
+                    <instructionId>decisionTable_9_9</instructionId>
+                              <type>VoidReturnExpectation</type>
+                                        <evaluationMessage>property not found identifier</evaluationMessage>
+                  </expectation>
+              </instructionResult>
+            <instructionResult>
+        <instruction>{id='decisionTable_9_10', instruction='call', instanceName='decisionTable_9', methodName='setName', args=[Alin V. Dobra]}</instruction>
+        <slimResult></slimResult>
+                <expectation>
+                    <status>error</status>
+                    <instructionId>decisionTable_9_10</instructionId>
+                              <type>VoidReturnExpectation</type>
+                                        <evaluationMessage>property not found name</evaluationMessage>
+                  </expectation>
+              </instructionResult>
+            <instructionResult>
+        <instruction>{id='decisionTable_9_11', instruction='call', instanceName='decisionTable_9', methodName='setTenure', args=[Tenured]}</instruction>
+        <slimResult></slimResult>
+                <expectation>
+                    <status>error</status>
+                    <instructionId>decisionTable_9_11</instructionId>
+                              <type>VoidReturnExpectation</type>
+                                        <evaluationMessage>property not found tenure</evaluationMessage>
+                  </expectation>
+              </instructionResult>
+            <instructionResult>
+        <instruction>{id='decisionTable_9_14', instruction='call', instanceName='decisionTable_9', methodName='setIdentifier', args=[AVDSpr15]}</instruction>
+        <slimResult></slimResult>
+                <expectation>
+                    <status>error</status>
+                    <instructionId>decisionTable_9_14</instructionId>
+                              <type>VoidReturnExpectation</type>
+                                        <evaluationMessage>property not found identifier</evaluationMessage>
+                  </expectation>
+              </instructionResult>
+            <instructionResult>
+        <instruction>{id='decisionTable_9_15', instruction='call', instanceName='decisionTable_9', methodName='setName', args=[Alin V. Dobra]}</instruction>
+        <slimResult></slimResult>
+                <expectation>
+                    <status>error</status>
+                    <instructionId>decisionTable_9_15</instructionId>
+                              <type>VoidReturnExpectation</type>
+                                        <evaluationMessage>property not found name</evaluationMessage>
+                  </expectation>
+              </instructionResult>
+            <instructionResult>
+        <instruction>{id='decisionTable_9_16', instruction='call', instanceName='decisionTable_9', methodName='setTenure', args=[Tenured]}</instruction>
+        <slimResult></slimResult>
+                <expectation>
+                    <status>error</status>
+                    <instructionId>decisionTable_9_16</instructionId>
+                              <type>VoidReturnExpectation</type>
+                                        <evaluationMessage>property not found tenure</evaluationMessage>
+                  </expectation>
+              </instructionResult>
+            <instructionResult>
+        <instruction>{id='scriptTable_10_0/scriptTable_6_0', instruction='call', instanceName='scriptTableActor', methodName='addUser', args=[U]}</instruction>
+        <slimResult></slimResult>
+                <expectation>
+                    <instructionId>scriptTable_10_0/scriptTable_6_0</instructionId>
+                    <col>0</col>
+                              <row>1</row>
+                    <type>ScriptActionExpectation</type>
+                                      </expectation>
+              </instructionResult>
+            <instructionResult>
+        <instruction>{id='scriptTable_10_1/scriptTable_1_0', instruction='call', instanceName='scriptTableActor', methodName='loginUser', args=[U]}</instruction>
+        <slimResult></slimResult>
+                <expectation>
+                    <instructionId>scriptTable_10_1/scriptTable_1_0</instructionId>
+                    <col>0</col>
+                              <row>1</row>
+                    <type>ScriptActionExpectation</type>
+                                      </expectation>
+              </instructionResult>
+            <instructionResult>
+        <instruction>{id='scriptTable_10_2/scriptTable_3_0', instruction='call', instanceName='scriptTableActor', methodName='createPermissionForEditing', args=[U, AVDSpr13]}</instruction>
+        <slimResult></slimResult>
+                <expectation>
+                    <status>error</status>
+                    <instructionId>scriptTable_10_2/scriptTable_3_0</instructionId>
+                              <type>ScriptActionExpectation</type>
+                                        <evaluationMessage>property not found createPermissionForEditing</evaluationMessage>
+                  </expectation>
+              </instructionResult>
+            <instructionResult>
+        <instruction>{id='scriptTable_10_3/scriptTable_4_0', instruction='call', instanceName='scriptTableActor', methodName='presentationUser', args=[]}</instruction>
+        <slimResult>fail(a=;e=U)</slimResult>
+                <expectation>
+                    <status>fail</status>
+                    <instructionId>scriptTable_10_3/scriptTable_4_0</instructionId>
+                    <col>2</col>
+                              <row>1</row>
+                    <type>ReturnedValueExpectation</type>
+                    <actual></actual>
+                              <expected>U</expected>
+                            </expectation>
+              </instructionResult>
+          </instructions>
+      </result>
+  <executionLog>
+    <testSystem>slim:fitnesse.slim.SlimService</testSystem>
+    <command>./node_modules/decaf/bin/decaf-js ./far/test/fixtures 8089</command>
+    <exitCode>0</exitCode>
+    <stdOut></stdOut>
+    <stdErr></stdErr>
+  </executionLog>
+  <finalCounts>
+    <right>0</right>
+    <wrong>1</wrong>
+    <ignores>0</ignores>
+    <exceptions>0</exceptions>
+  </finalCounts>
+  <totalRunTimeInMillis>338</totalRunTimeInMillis>
+</testResults>
+

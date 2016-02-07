@@ -1,0 +1,29 @@
+{
+  "name": "FacultyActivityReporting(FAR)",
+  "version": "0.0.1",
+  "description": "",
+  "homepage": "https://github.com/ifell/far",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ifell/far.git"
+  },
+  "keywords": [
+    "far",
+    "reporting"
+  ],
+  "author": "Ian Fell <ifell@ufl.edu>",
+  "licenses": [
+    "MIT"
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "chance": "^0.8.0",
+    "decaf": "latest",
+    "jasmine": "^2.4.1",
+    "should": "^8.2.1"
+  },
+  "scripts": {
+    "fitnesse": "java -jar ./fitnesse/fitnesse-standalone.jar -p 8000 -r ./fitnesse/FitNesseRoot",
+    "test": "./node_modules/jasmine/bin/jasmine ./far/test"
+  }
+}

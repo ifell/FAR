@@ -1,0 +1,20 @@
+| scenario | given a user _ | user |
+| create user | @user |
+
+| scenario | with _ logged in | user |
+| log in user | @user |
+
+| scenario | create report _ belonging to user _ | report,user |
+| create report belonging to | @report,@user |
+
+| scenario | add section _ to report _ | section,report |
+| create section belonging to report | @section,@report |
+
+| scenario | then the header is presented in _ | report |
+| check | has header in | @report | true |
+
+| scenario | then the footer is presented in _ | report |
+| check | has footer in | @report | true |
+
+| scenario | there are _ sections presented in report _ | number,report |
+| check | count of sections presented in | @report | @number |
