@@ -2,37 +2,92 @@
 
 var entities = require('../../../src/entities');
 var doubles = require('../../doubles');
+var _ = require('underscore');
 
-describe('user', function() {
-  it ('a saved user should have a defined id', function(done) {
-    var userGateway, user;
+const MessageReceiver = require('../../TestMessageReceiver.js');
 
-    userGateway = new doubles.InMemoryUserGateway();
-    user = new entities.User({username: 'ianfell'});
+var TestMessageReceiver, user1, userGateway;
 
-    expect(user.id).toBeUndefined();
+describe('Unsaved User', function () {
+  beforeEach(function () {
+    TestMessageReceiver = new MessageReceiver();
+    user1 = new entities.User({username: 'ianfell'});
+    userGateway = new doubles.InMemoryUserGateway(TestMessageReceiver);
+  });
 
-    userGateway.save(user);
-    expect(user.id).toBeDefined();
-
-    expect(userGateway.getUsers()[user.id]).toEqual(user)
-
+  it('an unsaved user should have an undefined id', function (done) {
+    expect(user1.id).toBeUndefined();
     done();
   });
 
-  it ('should save correctly', function(done) {
-    var userGateway, user;
+  describe('Saved User', function () {
+    beforeEach(function () {
+      userGateway.save(user1);
+    });
 
-    userGateway = new doubles.InMemoryUserGateway();
-    user = new entities.User({username: 'ianfell'});
+    it('has a defined id', function (done) {
+      expect(user1.id).toBeDefined();
+      done();
+    });
 
-    userGateway.save(user);
+    it('increments the size of the database by one', function (done) {
+      expect(userGateway.size()).toEqual(1);
+      done();
+    });
 
-    user.username = 'cocoafell';
+    it('sends a user saved message', function (done) {
+      expect(TestMessageReceiver.messages.has('USER_SAVED'));
+      done();
+    });
+  });
 
-    expect(userGateway.getUsers()[user.id].username).not.toEqual(user.username);
+  describe('Update User', function () {
+    beforeEach(function () {
+      userGateway.save(user1);
+    });
 
+    it('an update should not change the user id', function (done) {
+      var userid = user1.id;
+
+      userGateway.save(user1);
+
+      expect(userid).toEqual(user1.id);
+      done();
+    });
+
+    it('an update should not add a new user', function (done) {
+      userGateway.save(user1);
+
+      expect(userGateway.size()).toEqual(1);
+      done();
+    });
+
+    it('can update a username to a nonexisting username')
+
+    
+  });
+
+
+
+
+  it('two saves on different object should add to the database twice', function (done) {
+    var user2 = new entities.User({username: 'cocoafell'});
+
+    userGateway.save(user1);
+    userGateway.save(user2);
+
+    expect(userGateway.size()).toEqual(2);
     done();
   });
 
+  it('two users should not have the same username', function (done) {
+    var user2 = new entities.User({username: 'ianfell'});
+
+    userGateway.save(user1);
+    userGateway.save(user2);
+
+    expect(userGateway.size()).toEqual(1);
+    expect(TestMessageReceiver.messages.has('USER_SAVE_ERROR'));
+    done();
+  });
 });

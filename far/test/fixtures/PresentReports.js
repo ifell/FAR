@@ -9,7 +9,7 @@ function PresentReports() {}
 PresentReports.prototype.createUser = function(user) {
   this.userGateway = new doubles.InMemoryUserGateway;
 
-  this.user = User.create({username: 'ianfell', password: 'password'});
+  this.user = new User({username: 'ianfell'});
   this.userGateway.save(this.user);
 };
 
