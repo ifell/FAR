@@ -3,38 +3,56 @@
 var Chance = require('chance');
 var chance = new Chance();
 
-var _ = require('underscore');
+var util = require('util');
+var UserGateway = require('../../src/gateways/UserGateway');
 
-var User = require('../../src/entities').User;
+let users = new WeakMap();
+let thisMessageReceiver = new WeakMap();
 
-var users, thisMessageReceiver;
+class InMemoryUserGateway extends UserGateway {
+  constructor(messageReceiver) {
+    super();
+    users.set(this, new Map());
+    thisMessageReceiver.set(this, messageReceiver);
+  }
 
-function InMemoryUserGateway(messageReceiver) {
-  users = new Map();
-  thisMessageReceiver = messageReceiver;
-}
+  getUserById(userid) {
+    var map = users.get(this);
+    return map.get(userid);
+  }
 
-InMemoryUserGateway.prototype.save = function(user) {
-  for (var u of users.values()) {
-    if (u.username === user.username) {
-      thisMessageReceiver.sameUsernameSaveError();
-      return;
+  getUserByUsername(username) {
+    for (var u of users.get(this).values()) {
+      if (u.username === username) {
+        thisMessageReceiver.get(this).userFetched();
+        return u;
+      }
     }
+
+    return undefined;
   }
 
-  if (!users.has(user.id)) {
-    user.id = chance.hash({length: 20});
-    users.set(user.id, user);
-    thisMessageReceiver.userSaved();
+  save(user) {
+    if (!users.get(this).has(user.id))
+      user.id = chance.hash({length: 20});
+
+    users.get(this).set(user.id, user.clone());
+    thisMessageReceiver.get(this).userSaved();
   }
-};
 
-InMemoryUserGateway.prototype.size = function() {
-  return users.size;
-};
+  size() {
+    return users.get(this).size;
+  }
 
-InMemoryUserGateway.prototype.getUsers = function() {
+  getUsers() {
+    var cloned_users = [];
 
-};
+    for (var u of users.get(this).values()) {
+      cloned_users.push(u.clone());
+    }
+
+    return cloned_users;
+  }
+}
 
 module.exports = InMemoryUserGateway;

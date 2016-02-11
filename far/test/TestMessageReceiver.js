@@ -1,19 +1,19 @@
 'use strict';
 
-function MessageReceiver() {
+function TestMessageReceiver() {
   this.messages = new Set();
 }
 
-MessageReceiver.prototype.clearMessages = function() {
+TestMessageReceiver.prototype.clearMessages = function() {
   this.messages.clear();
 };
 
-MessageReceiver.prototype.sameUsernameSaveError = function() {
-  this.messages.add('SAVE_USER_ERROR');
+TestMessageReceiver.prototype.userSaved = function() {
+  this.messages.add('USER_SAVED');
 };
 
-MessageReceiver.prototype.userSaved = function() {
-  this.messages.add('USER_SAVED');
-}
+TestMessageReceiver.prototype.userFetched = function() {
+  this.messages.add('USER_FETCHED');
+};
 
-module.exports = MessageReceiver;
+module.exports = TestMessageReceiver;
