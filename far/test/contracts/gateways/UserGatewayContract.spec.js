@@ -1,6 +1,7 @@
 'use strict';
 
 var entities = require('../../../src/entities/index');
+
 var contract = require('../config');
 
 var TestMessageReceiver, user1, userGateway;
@@ -25,7 +26,7 @@ describe('Unsaved User', function () {
   });
 
   it('sends a user saved message', function (done) {
-    expect(TestMessageReceiver.messages.has('USER_SAVED'));
+    expect(TestMessageReceiver.messages.has('USER_SAVED')).toBe(true);
     done();
   });
 
@@ -85,7 +86,7 @@ describe('Unsaved User', function () {
     var fetched_user1 = userGateway.getUserByUsername('ianfell');
 
     expect(fetched_user1).toEqual(user1);
-    expect(TestMessageReceiver.messages.has('USER_FETCHED'));
+    expect(TestMessageReceiver.messages.has('USER_FETCHED')).toBe(true);
     done();
   });
 });

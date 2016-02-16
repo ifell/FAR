@@ -1,7 +1,7 @@
 'use strict';
 
-var User = require('../../src/entities/User');
-var Report = require('../../src/entities/Report');
+var User = require('../../src/entities').User;
+var Report = require('../../src/entities').Report;
 
 var doubles = require('../doubles');
 var GateKeeper = require('../../src/GateKeeper');
@@ -9,7 +9,9 @@ var MessageReceiver = require('../TestMessageReceiver');
 
 function PresentReports() {
   this.messageReceiver = new MessageReceiver();
+
   this.userGateway = new doubles.InMemoryUserGateway(this.messageReceiver);
+  this.reportGateway = new doubles.InMemoryReportGateway(this.messageReceiver);
 
   this.gateKeeper = new GateKeeper();
 }
@@ -29,7 +31,8 @@ PresentReports.prototype.logInUser = function(username) {
 };
 
 PresentReports.prototype.createReportBelongingTo = function(reportYear, username) {
-  var report = new Report(username, reportYear);
+  var user = this.userGateway.getUserByUsername(username);
+  var report = new Report(user, reportYear);
   this.reportGateway.save(report);
 
   return this.messageReceiver.messages.has('REPORT_SAVED');

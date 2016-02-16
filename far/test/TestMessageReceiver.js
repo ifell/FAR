@@ -16,4 +16,8 @@ TestMessageReceiver.prototype.userFetched = function() {
   this.messages.add('USER_FETCHED');
 };
 
+TestMessageReceiver.prototype.reportSaved = function() {
+  this.messages.add('REPORT_SAVED');
+};
+
 module.exports = TestMessageReceiver;

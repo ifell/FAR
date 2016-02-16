@@ -1,8 +1,6 @@
 'use strict';
 
-module.exports = function(messageReceiver, userGateway) {
-    return {
-      MessageReceiver: messageReceiver,
-      InMemoryUserGateway: userGateway
-    }
+module.exports = {
+  MessageReceiver: require('../TestMessageReceiver'),
+  InMemoryUserGateway: require('../doubles/gateways/InMemoryUserGateway')
 };

@@ -1,17 +1,17 @@
 'use strict';
 
-let loggedInUser = new WeakMap();
+class GateKeeper {
+  constructor() {
+    this._loggedInUser = undefined;
+  }
 
-function GateKeeper() {
-  loggedInUser.set(this, undefined);
+  setLoggedInUser(user) {
+    this._loggedInUser = user;
+  }
+
+  getLoggedInUser() {
+    return this._loggedInUser;
+  }
 }
-
-GateKeeper.prototype.setLoggedInUser = function(user) {
-  loggedInUser.set(this, user);
-};
-
-GateKeeper.prototype.getLoggedInUser = function() {
-  loggedInUser.get(this);
-};
 
 module.exports = GateKeeper;
