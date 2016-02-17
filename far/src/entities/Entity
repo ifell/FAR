@@ -1,0 +1,26 @@
+'use strict';
+
+class Entity {
+  constructor() {
+    this._id = undefined;
+  }
+
+  create() {}
+
+  clone() {
+    var cloned_user = this.create();
+    if (this.getId())
+      cloned_user.setId(this.getId());
+    return cloned_user;
+  }
+
+  getId() {
+    return this._id;
+  }
+
+  setId(id) {
+    this._id = id;
+  }
+}
+
+module.exports = Entity;

@@ -2,5 +2,5 @@
 
 module.exports = {
   MessageReceiver: require('../TestMessageReceiver'),
-  InMemoryUserGateway: require('../doubles/gateways/InMemoryUserGateway')
+  Gateway: require('../doubles/gateways/InMemoryUserGateway')
 };

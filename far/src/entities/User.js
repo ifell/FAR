@@ -1,16 +1,15 @@
 'use strict';
 
-class User {
+var Entity = require('./Entity');
+
+class User extends Entity {
   constructor(profile) {
+    super();
     this.username = profile.username;
-    this.id = undefined;
   }
 
-  clone() {
-    var cloned_user = new User(this);
-    if (this.id)
-      cloned_user.id = this.id;
-    return cloned_user;
+  create() {
+    return new User({username: this.username});
   }
 }
 

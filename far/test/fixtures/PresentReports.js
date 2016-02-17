@@ -3,14 +3,14 @@
 var User = require('../../src/entities').User;
 var Report = require('../../src/entities').Report;
 
-var doubles = require('../doubles');
+var doubles = require('../doubles/gateways');
 var GateKeeper = require('../../src/GateKeeper');
 var MessageReceiver = require('../TestMessageReceiver');
 
 function PresentReports() {
   this.messageReceiver = new MessageReceiver();
 
-  this.userGateway = new doubles.InMemoryUserGateway(this.messageReceiver);
+  this.userGateway = new doubles.Gateway(this.messageReceiver);
   this.reportGateway = new doubles.InMemoryReportGateway(this.messageReceiver);
 
   this.gateKeeper = new GateKeeper();
