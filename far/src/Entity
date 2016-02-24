@@ -1,0 +1,52 @@
+'use strict';
+
+var DefinedEntities = {
+  User: function(entity, fields) {
+    entity.username = fields.username;
+  },
+  Report: function(entity, fields) {
+    entity.username = fields.username;
+    entity.year = fields.year;
+  }
+};
+
+var Entities = {
+  Default: function(entity, fields) { }
+};
+
+Object.assign(Entities, DefinedEntities);
+
+class Entity {
+  constructor() {
+    this._id = undefined;
+  }
+
+  static create(name, fields) {
+    var entity = new Entity();
+
+    var EntityType = Entities[name];
+    if (!EntityType) {
+      throw new Error('Unknown Entity');
+    } else {
+      EntityType(entity, fields);
+    }
+
+    return entity;
+  }
+
+  clone() {
+    var cloned_entity = new Entity();
+    Object.assign(cloned_entity, this);
+    return cloned_entity;
+  }
+
+  getId() {
+    return this._id;
+  }
+
+  setId(id) {
+    this._id = id;
+  }
+}
+
+module.exports = Entity;

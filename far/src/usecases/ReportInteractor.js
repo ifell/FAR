@@ -1,6 +1,6 @@
 'use strict';
 
-var Report = require('../entities/Report');
+var Entity = require('../Entity');
 let Context = require('../Context');
 
 class ReportInteractor {
@@ -16,7 +16,7 @@ class ReportInteractor {
     } else if (Context.reportGateway.getReportByUsernameAndReportYear(username, year)) {
       response.message = Context.REPORT_ALREADY_CREATED(year, username);
     } else {
-      var newReport = new Report(year, username);
+      var newReport = Entity.create('Report', {year:year, username:username});
       Context.reportGateway.save(newReport);
 
       response.message = Context.REPORT_CREATED(username, year);

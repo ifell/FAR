@@ -1,13 +1,13 @@
 'use strict';
 
-var User = require('../entities/User');
+var Entity = require('../Entity');
 var Context = require('../Context');
 
-function UserInteractor() {}
-
-UserInteractor.prototype.createUser = function(username) {
-  var newUser = new User({username: username});
-  Context.userGateway.save(newUser);
-};
+class UserInteractor {
+  createUser(username) {
+    var newUser = Entity.create('User', {username: username});
+    Context.userGateway.save(newUser);
+  }
+}
 
 module.exports = UserInteractor;
