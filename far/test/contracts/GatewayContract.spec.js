@@ -4,12 +4,11 @@ var entities = require('../../src/entities');
 
 var contract = require('./config');
 
-var TestMessageReceiver, collection01, gateway;
+var collection01, gateway;
 
-describe('Unsaved Collection', function () {
+describe('Gateway', function () {
   beforeEach(function () {
-    TestMessageReceiver = new contract.MessageReceiver();
-    gateway = new contract.Gateway(TestMessageReceiver);
+    gateway = new contract.Gateway();
 
     collection01 = new entities.User({username: 'ianfell'});
     gateway.save(collection01);
@@ -22,11 +21,6 @@ describe('Unsaved Collection', function () {
 
   it('increments the size of the database by one', function (done) {
     expect(gateway.size()).toEqual(1);
-    done();
-  });
-
-  it('sends a user saved message', function (done) {
-    expect(TestMessageReceiver.messages.has('USER_SAVED')).toBe(true);
     done();
   });
 
@@ -86,7 +80,14 @@ describe('Unsaved Collection', function () {
     var fetched_user1 = gateway.getUserByUsername('ianfell');
 
     expect(fetched_user1).toEqual(collection01);
-    expect(TestMessageReceiver.messages.has('USER_FETCHED')).toBe(true);
     done();
   });
+});
+
+describe('User Gateway', function() {
+
+});
+
+describe('Report Gateway', function() {
+
 });

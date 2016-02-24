@@ -3,14 +3,14 @@
 var Entity = require('./Entity');
 
 class Report extends Entity {
-  constructor(user, reportYear) {
+  constructor(year, username) {
     super();
-    this._user = user;
-    this._reportYear = reportYear;
+    this.year = year;
+    this.username = username;
   }
 
-  create() {
-    return new Report(this._user, this._reportYear);
+  _create() {
+    return new Report(this.year, this.username);
   }
 }
 

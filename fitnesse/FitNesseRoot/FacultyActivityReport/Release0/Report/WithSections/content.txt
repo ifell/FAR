@@ -1,0 +1,16 @@
+-|script|
+|Given Report R|
+|Given Section T|
+|Given Section S|
+
+-|script|
+|When section T is added to report R|
+|Then 1 sections exist in report R|
+
+-|script|
+|When section T is added to report R|
+|Then 2 sections exist in report R|
+
+-|script|
+|When section S is added to report R|
+|Then 3 sections exist in report R|

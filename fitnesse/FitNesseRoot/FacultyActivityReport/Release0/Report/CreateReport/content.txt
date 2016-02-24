@@ -1,0 +1,12 @@
+Users should have no more than 1 report for each year.
+
+-!|script|
+|Given Users|
+
+-!|script|
+|When a 2016 report is created and assigned to ifell|
+|Then a 2016_REPORT_ASSIGNED_TO_IFELL message is received|
+
+-!|script|
+|When a 2016 report is created and assigned to ifell|
+|Then a 2016_REPORT_ALREADY_EXISTS_FOR_IFELL message is received|

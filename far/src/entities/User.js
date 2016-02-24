@@ -8,7 +8,7 @@ class User extends Entity {
     this.username = profile.username;
   }
 
-  create() {
+  _create() {
     return new User({username: this.username});
   }
 }

@@ -5,10 +5,12 @@ class Entity {
     this._id = undefined;
   }
 
-  create() {}
+  _create() {
+    return new Entity();
+  }
 
   clone() {
-    var cloned_user = this.create();
+    var cloned_user = this._create();
     if (this.getId())
       cloned_user.setId(this.getId());
     return cloned_user;

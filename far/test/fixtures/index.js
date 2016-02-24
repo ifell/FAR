@@ -1,6 +1,8 @@
 'use strict';
 
 module.exports = {
-  PresentReports: require('./PresentReports'),
-  ReportFormat: require('./ReportFormat')
+  ReportFormat: require('./ReportFormat'),
+  Creation: require('./Creation'),
+  SetupContext: require('./SetupContext'),
+  Session: require('./Session')
 };

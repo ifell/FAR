@@ -1,0 +1,33 @@
+| scenario | then it is _ that _ can view _ _ Report| assert,user,belongsTo,report |
+| check | user can view | @user,@report,@belongsTo | @assert |
+
+| scenario | then it is _ that _ can edit _ _ Report | assert,user,belongsTo,report |
+| check | user can edit | @user,@report,@belongsTo | @assert |
+
+| scenario | grant _ permission to _ _ _ | user,type,belongsTo,report |
+| grant permission to @type | @user,@report,@belongsTo |
+
+-!|script|
+|create report 2014 belonging to user U|
+
+-!|script|
+|given a user U|
+|with U logged in|
+|then it is true that U can view U 2014 Report|
+|then it is true that U can edit U 2014 Report|
+
+-!|script|
+|given a user T|
+|with T logged in|
+|then it is false that T can view U 2014 Report|
+|then it is false that T can edit U 2014 Report|
+
+-!|script|
+|grant T permission to view 2014|
+|then it is true that T can view U 2014 Report|
+|then it is false that T can edit U 2014 Report|
+
+-!|script|
+|grant T permission to edit 2014|
+|then it is true that T can view U 2014 Report|
+|then it is true that T can edit U 2014 Report|

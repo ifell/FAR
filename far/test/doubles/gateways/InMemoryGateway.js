@@ -4,10 +4,8 @@ var Chance = require('chance');
 var chance = new Chance();
 
 class InMemoryUtilities {
-  constructor(name, messageReceiver) {
-    this._name = name;
+  constructor() {
     this._collection = new Map();
-    this._messageReceiver = messageReceiver;
   }
 
   save(document) {
@@ -15,7 +13,6 @@ class InMemoryUtilities {
       document.setId(chance.hash({length: 20}));
 
     this._collection.set(document.getId(), document.clone());
-    this._messageReceiver.saved(this._name);
   }
 
   size() {

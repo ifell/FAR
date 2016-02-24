@@ -1,0 +1,5 @@
+-|script|
+|Given Users|
+|Given ifell is logged in|
+|When a logout request is sent|
+|Then a IFELL_LOGGED_OUT message is received|

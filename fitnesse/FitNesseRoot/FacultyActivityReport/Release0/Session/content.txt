@@ -1,0 +1,5 @@
+Given a user
+When a guest successfully authenticates himself
+Then the system should show the guest as logged in under that authenticated user.
+
+!contents -R4 -g -p -f -h

@@ -1,2 +1,2 @@
 !1 Test suite for Release 0
-!contents -R2 -g -p -f -h
+!contents -R4 -g -p -f -h

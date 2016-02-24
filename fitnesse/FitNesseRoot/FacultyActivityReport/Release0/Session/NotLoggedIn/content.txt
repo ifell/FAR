@@ -1,0 +1,4 @@
+-|script|
+|Given Users|
+|When a logout request is sent|
+|Then a ALREADY_LOGGED_OUT message is received|

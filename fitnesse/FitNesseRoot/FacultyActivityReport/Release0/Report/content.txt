@@ -1,0 +1,6 @@
+Given a new report R
+Given a section T
+When section T is added to report R
+Then report R contains section T
+
+!contents -R2 -g -p -f -h

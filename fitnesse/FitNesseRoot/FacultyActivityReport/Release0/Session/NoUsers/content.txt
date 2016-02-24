@@ -1,0 +1,6 @@
+!|scenario|Given No Users|
+
+-|script|
+|Given No Users|
+|When logging in as ifell|
+|Then a USER_DOESNT_EXIST message is received|

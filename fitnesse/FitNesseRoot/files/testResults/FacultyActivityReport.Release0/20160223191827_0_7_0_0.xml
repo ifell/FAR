@@ -1,0 +1,113 @@
+<?xml version="1.0"?>
+<suiteResults>
+  <FitNesseVersion>v20151230</FitNesseVersion>
+  <rootPath>FacultyActivityReport.Release0</rootPath>
+  <pageHistoryReference>
+    <name>FacultyActivityReport.Release0.Report.CreateReport</name>
+    <date>2016-02-23T19:18:27-05:00</date>
+    <pageHistoryLink>FacultyActivityReport.Release0.Report.CreateReport?pageHistory&amp;resultDate=20160223191827</pageHistoryLink>
+    <counts>
+      <right>0</right>
+      <wrong>2</wrong>
+      <ignores>0</ignores>
+      <exceptions>0</exceptions>
+    </counts>
+    <runTimeInMillis>63</runTimeInMillis>
+  </pageHistoryReference>
+  <pageHistoryReference>
+    <name>FacultyActivityReport.Release0.Report.EmptyReport</name>
+    <date>2016-02-23T19:18:27-05:00</date>
+    <pageHistoryLink>FacultyActivityReport.Release0.Report.EmptyReport?pageHistory&amp;resultDate=20160223191827</pageHistoryLink>
+    <counts>
+      <right>0</right>
+      <wrong>2</wrong>
+      <ignores>0</ignores>
+      <exceptions>2</exceptions>
+    </counts>
+    <runTimeInMillis>18</runTimeInMillis>
+  </pageHistoryReference>
+  <pageHistoryReference>
+    <name>FacultyActivityReport.Release0.Report.WithSections</name>
+    <date>2016-02-23T19:18:27-05:00</date>
+    <pageHistoryLink>FacultyActivityReport.Release0.Report.WithSections?pageHistory&amp;resultDate=20160223191827</pageHistoryLink>
+    <counts>
+      <right>1</right>
+      <wrong>5</wrong>
+      <ignores>0</ignores>
+      <exceptions>3</exceptions>
+    </counts>
+    <runTimeInMillis>23</runTimeInMillis>
+  </pageHistoryReference>
+  <pageHistoryReference>
+    <name>FacultyActivityReport.Release0.Session.Logout</name>
+    <date>2016-02-23T19:18:28-05:00</date>
+    <pageHistoryLink>FacultyActivityReport.Release0.Session.Logout?pageHistory&amp;resultDate=20160223191828</pageHistoryLink>
+    <counts>
+      <right>0</right>
+      <wrong>1</wrong>
+      <ignores>0</ignores>
+      <exceptions>0</exceptions>
+    </counts>
+    <runTimeInMillis>21</runTimeInMillis>
+  </pageHistoryReference>
+  <pageHistoryReference>
+    <name>FacultyActivityReport.Release0.Session.NoUsers</name>
+    <date>2016-02-23T19:18:28-05:00</date>
+    <pageHistoryLink>FacultyActivityReport.Release0.Session.NoUsers?pageHistory&amp;resultDate=20160223191828</pageHistoryLink>
+    <counts>
+      <right>0</right>
+      <wrong>1</wrong>
+      <ignores>0</ignores>
+      <exceptions>0</exceptions>
+    </counts>
+    <runTimeInMillis>12</runTimeInMillis>
+  </pageHistoryReference>
+  <pageHistoryReference>
+    <name>FacultyActivityReport.Release0.Session.NotLoggedIn</name>
+    <date>2016-02-23T19:18:28-05:00</date>
+    <pageHistoryLink>FacultyActivityReport.Release0.Session.NotLoggedIn?pageHistory&amp;resultDate=20160223191828</pageHistoryLink>
+    <counts>
+      <right>0</right>
+      <wrong>1</wrong>
+      <ignores>0</ignores>
+      <exceptions>0</exceptions>
+    </counts>
+    <runTimeInMillis>19</runTimeInMillis>
+  </pageHistoryReference>
+  <pageHistoryReference>
+    <name>FacultyActivityReport.Release0.Session.WithUsers</name>
+    <date>2016-02-23T19:18:28-05:00</date>
+    <pageHistoryLink>FacultyActivityReport.Release0.Session.WithUsers?pageHistory&amp;resultDate=20160223191828</pageHistoryLink>
+    <counts>
+      <right>1</right>
+      <wrong>3</wrong>
+      <ignores>0</ignores>
+      <exceptions>0</exceptions>
+    </counts>
+    <runTimeInMillis>18</runTimeInMillis>
+  </pageHistoryReference>
+  <executionLog>
+    <testSystem>slim:fitnesse.slim.SlimService</testSystem>
+    <command>./node_modules/decaf/bin/decaf-js ./far/test/fixtures 8093</command>
+    <exitCode>0</exitCode>
+    <stdOut>undefined
+undefined
+undefined
+undefined
+undefined
+undefined
+undefined
+undefined
+undefined
+</stdOut>
+    <stdErr></stdErr>
+  </executionLog>
+  <finalCounts>
+    <right>0</right>
+    <wrong>7</wrong>
+    <ignores>0</ignores>
+    <exceptions>0</exceptions>
+  </finalCounts>
+  <totalRunTimeInMillis>410</totalRunTimeInMillis>
+</suiteResults>
+

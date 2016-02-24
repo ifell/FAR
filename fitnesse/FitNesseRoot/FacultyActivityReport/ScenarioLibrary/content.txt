@@ -1,20 +1,48 @@
-| scenario | given a user _ | user |
-| create user | @user |
+!3 User Scenarios
 
-| scenario | with _ logged in | user |
-| log in user | @user |
+!|scenario|Given Users|
+|create user|ifell|
+|create user|mssz|
+|create user|adobra|
 
-| scenario | create report _ belonging to user _ | report,user |
-| create report belonging to | @report,@user |
+!3 Session Scenarios
 
-| scenario | add section _ to report _ | section,report |
-| create section belonging to report | @section,@report |
+!|scenario|Given _ is logged in|username|
+|log in|@username|
 
-| scenario | then the header is presented in _ | report |
+!|scenario|When logging in as _ |username|
+|log in|@username|
+
+!|scenario|When a logout request is sent|
+|log out|
+
+!3 Report Scenarios
+
+!|scenario|Given Report _|reportId|
+|create report|@reportId|
+
+!|scenario|When section _ is added to report _|section,report|
+|create section belonging to report|@section,@report|
+
+!|scenario|When a _ report is created and assigned to _|year,username|
+|create report|@year|
+|and assign to|@username|
+
+!| scenario | Then the header exists in _ | report |
 | check | has header in | @report | true |
 
-| scenario | then the footer is presented in _ | report |
+!| scenario | Then the footer exists in _ | report |
 | check | has footer in | @report | true |
 
-| scenario | there are _ sections presented in report _ | number,report |
+!| scenario | Then _ sections exist in report _ | number,report |
 | check | count of sections presented in | @report | @number |
+
+!3 Message Scenarios
+
+!|scenario|Then a _ message is received|msg|
+|check|message was received|@msg|true|
+
+!|scenario|Then a _ message is not received|msg|
+|check|message was received|@msg|false|
+
+!3 Section Scenarios

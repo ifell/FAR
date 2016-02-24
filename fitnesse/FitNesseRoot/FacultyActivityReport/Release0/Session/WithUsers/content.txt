@@ -1,0 +1,14 @@
+-|script|
+|Given Users|
+
+-|script|
+|When logging in as nonExistingUsername|
+|Then a USER_DOESNT_EXIST message is received|
+|Then a NONEXISTINGUSERNAME_LOGGED_IN message is not received|
+|When logging in as ifell|
+|Then a IFELL_LOGGED_IN message is received|
+
+-|script|
+|Given ifell is logged in|
+|When logging in as mssz|
+|Then a ALREADY_LOGGED_IN message is received|
