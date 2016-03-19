@@ -5,8 +5,13 @@ var DefinedEntities = {
     entity.username = fields.username;
   },
   Report: function(entity, fields) {
-    entity.username = fields.username;
-    entity.year = fields.year;
+    // todo: test default values
+    entity.username = fields.username || '';
+    entity.year = fields.year || 1700;
+    entity.sections = new Map();
+    entity.addSection = function(section) {
+      entity.sections.set(section.title, section);
+    }
   }
 };
 

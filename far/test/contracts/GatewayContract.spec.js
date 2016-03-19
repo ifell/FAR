@@ -1,6 +1,6 @@
 'use strict';
 
-var Entity = require('../../src/Entity');
+var Entity = require('../../src/Entities/Entity');
 
 var contract = require('./config');
 
@@ -14,13 +14,10 @@ describe('Gateway', function () {
   beforeEach(function () {
     entity = Entity.create('Default');
     gateway = new contract.Gateway();
+    gateway.save(entity);
   });
 
   describe('A Saved Entity', function () {
-    beforeEach(function () {
-      gateway.save(entity);
-    });
-
     it('is a clone of the original entity', function (done) {
       expectObjectReferencesToBeDifferent(Object.is(gateway._collection.get(entity.getId()), entity));
       done();
@@ -53,51 +50,15 @@ describe('Gateway', function () {
       expect(gateway.size()).toEqual(1);
       done();
     });
-
-    //it('can not update an entity until that change is re-saved', function (done) {
-    //  entity.setId('A');
-    //  gateway.save(entity);
-    //  expect(gateway.getById(entity.getId()).username).toEqual('username');
-    //
-    //  //entity.username = 'anotherusername';
-    //  //expect(gateway.getById(entity.getId()).username).toEqual('username');
-    //  //gateway.save(entity);
-    //  //
-    //  //expect(gateway.getById(entity.getId()).username).toEqual('anotherusername');
-    //  //expect(gateway.size()).toEqual(1);
-    //  done();
-    //});
   });
 
+  it('another saved entity increments the size by 2', function (done) {
+    var entity2 = Entity.create('Default');
+    gateway.save(entity2);
 
-
-  //
-  //it('can get a list of users', function (done) {
-  //  var user2 = new entities.User({username: 'cocoafell'});
-  //  gateway.save(user2);
-  //
-  //  var users = gateway.get();
-  //
-  //  expect(users.length).toEqual(2);
-  //  done();
-  //});
-  //
-  //it('two saves on different object should add to the database twice', function (done) {
-  //  var user2 = new entities.User({username: 'cocoafell'});
-  //
-  //  gateway.save(user2);
-  //
-  //  expect(gateway.size()).toEqual(2);
-  //  done();
-  //});
-  //
-  //it('can get a user from a username', function (done) {
-  //  var fetched_user1 = gateway.getUserByUsername('ianfell');
-  //
-  //  expect(fetched_user1).toEqual(collection01);
-  //  done();
-  //});
-
+    expect(gateway.size()).toEqual(2);
+    done();
+  });
 });
 
 describe('User Gateway', function () {

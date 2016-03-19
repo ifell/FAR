@@ -13,12 +13,9 @@ Creation.prototype.createUser = function(username) {
   this.userInteractor.createUser(username);
 };
 
-Creation.prototype.createReport = function(year) {
-  this.year = year;
-};
-
-Creation.prototype.andAssignTo = function(username) {
-  this.reportInteractor.createReportFor(this.year, username);
+Creation.prototype.createReportAndAssignTo = function(input) {
+  var inputs = input.split(',');
+  this.reportInteractor.createReportFor(inputs[0], inputs[1]);
 };
 
 module.exports = Creation;

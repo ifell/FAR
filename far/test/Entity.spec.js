@@ -1,6 +1,6 @@
 'use strict';
 
-var Entity = require('../src/Entity');
+var Entity = require('../src/Entities/Entity');
 
 describe('Entities', function() {
   it ('can not create an unknown entity', function(done) {

@@ -7,13 +7,13 @@ class InMemoryUserGateway extends InMemoryGateway {
     super();
   }
 
-  getUserByUsername(username) {
+  getUserByUsername(username, callback) {
     for (var u of this._collection.values()) {
       if (u.username === username) {
-        return u.clone();
+        return callback(u.clone());
       }
     }
-    return undefined;
+    return callback(undefined);
   }
 }
 

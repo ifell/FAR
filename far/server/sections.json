@@ -1,0 +1,49 @@
+[
+  {
+    "title": "Name",
+    "body": [
+      {
+        "label": "first",
+        "type": "text"
+      },
+      {
+        "label": "middle",
+        "type": "text"
+      },
+      {
+        "label": "last",
+        "type": "text"
+      }
+    ]
+  },
+  {
+    "title": "Tenure",
+    "body": [
+      {
+        "label": "tenure",
+        "type": "checkbox"
+      }
+    ]
+  },
+  {
+    "title": "Current Rank",
+    "body": [
+      {
+        "label": "rank",
+        "type": "selectbox",
+        "inputs": [
+          "Professor",
+          "Associate Professor"
+        ]
+      },
+      {
+        "label": "department",
+        "type": "selectbox",
+        "inputs": [
+          "Computer and Information Science and Engineering",
+          "Other department"
+        ]
+      }
+    ]
+  }
+]

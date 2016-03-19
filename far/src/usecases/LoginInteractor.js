@@ -1,25 +1,43 @@
 'use strict';
 
-let Context = require('../Context');
+var Context = require('../Context');
+
+function alreadyLoggedIn() {
+  return Context.gateKeeper.getLoggedInUser();
+}
 
 class LoginInteractor {
   constructor() {
   }
 
+  setContext(context) {
+    Context = context;
+  }
+
+  setPresenter(presenter) {
+    this.presenter = presenter;
+  }
+
+  setContractor(contractor) {
+    this._contractor = contractor;
+  }
+
   login(request) {
     var response = {};
+    var self = this;
 
-    var user = Context.userGateway.getUserByUsername(request.username);
-    if (!user) {
-      response.message = Context.USER_DOESNT_EXIST();
-    } else if (alreadyLoggedIn()) {
-      response.message = Context.ALREADY_LOGGED_IN();
-    } else {
-      response.message = Context.VALID_LOGIN_MESSAGE(request.username);
-      Context.gateKeeper.setLoggedInUser(user);
-    }
+    Context.userGateway.getUserByUsername(request.username, function (user) {
+      if (!user) {
+        self._contractor.USER_DOESNT_EXIST(request, response);
+      } else if (alreadyLoggedIn()) {
+        self._contractor.ALREADY_LOGGED_IN(request, response);
+      } else {
+        self._contractor.VALID_LOGIN_MESSAGE(request, response);
+        Context.gateKeeper.setLoggedInUser(user);
+      }
 
-    Context.presenter.present(response);
+      self.presenter.present(response);
+    });
   }
 
   logout() {
@@ -27,19 +45,14 @@ class LoginInteractor {
 
     var user = Context.gateKeeper.getLoggedInUser();
     if (!user) {
-      response.message = Context.ALREADY_LOGGED_OUT();
+      this._contractor.ALREADY_LOGGED_OUT(user, response);
     } else {
+      this._contractor.LOGOUT_MESSAGE(user, response);
       Context.gateKeeper.setLoggedInUser(undefined);
-
-      response.message = Context.LOGOUT_MESSAGE(user.username);
     }
 
-    Context.presenter.present(response);
+    this.presenter.present(response);
   }
-}
-
-function alreadyLoggedIn() {
-  return Context.gateKeeper.getLoggedInUser();
 }
 
 module.exports = LoginInteractor;

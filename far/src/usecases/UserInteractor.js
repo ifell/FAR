@@ -1,6 +1,6 @@
 'use strict';
 
-var Entity = require('../Entity');
+var Entity = require('../Entities/Entity');
 var Context = require('../Context');
 
 class UserInteractor {

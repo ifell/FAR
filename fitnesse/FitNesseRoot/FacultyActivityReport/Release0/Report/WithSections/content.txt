@@ -1,7 +1,7 @@
 -|script|
 |Given Report R|
-|Given Section T|
 |Given Section S|
+|Given Section T|
 
 -|script|
 |When section T is added to report R|

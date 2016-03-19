@@ -1,7 +1,8 @@
 -!|script|
-|Given Report R|
+|Given Users|
+
+-!|script|
+|Given Report 2016 Assigned To ifell|
 
 -|script|
-|Then the header exists in report R|
-|Then the footer exists in report R|
-|Then 0 sections exists in report R|
+|Then 0 sections exists in report 2016 belonging to ifell|

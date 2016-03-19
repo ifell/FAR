@@ -18,15 +18,14 @@
 
 !3 Report Scenarios
 
-!|scenario|Given Report _|reportId|
-|create report|@reportId|
+!|scenario|Given Report _ Assigned To _|year,username|
+|create report and assign to|@year,@username||
 
 !|scenario|When section _ is added to report _|section,report|
 |create section belonging to report|@section,@report|
 
 !|scenario|When a _ report is created and assigned to _|year,username|
-|create report|@year|
-|and assign to|@username|
+|create report and assign to|@year,@username|
 
 !| scenario | Then the header exists in _ | report |
 | check | has header in | @report | true |
@@ -34,8 +33,8 @@
 !| scenario | Then the footer exists in _ | report |
 | check | has footer in | @report | true |
 
-!| scenario | Then _ sections exist in report _ | number,report |
-| check | count of sections presented in | @report | @number |
+!| scenario | Then _ sections exists in report _ belonging to _ | number,year,username |
+| check | count of sections presented in | @year,@username | @number |
 
 !3 Message Scenarios
 
