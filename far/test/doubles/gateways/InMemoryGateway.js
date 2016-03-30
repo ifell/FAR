@@ -15,6 +15,14 @@ class InMemoryUtilities {
     this._collection.set(document.getId(), document.clone());
   }
 
+  asyncSave(document, callback) {
+    if (!this._collection.has(document.getId()))
+      document.setId(chance.hash({length: 20}));
+
+    this._collection.set(document.getId(), document.clone());
+    callback();
+  }
+
   size() {
     return this._collection.size;
   }

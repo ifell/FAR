@@ -26,7 +26,24 @@ function init(sections) {
   return map;
 }
 
+var mongoose = require('mongoose');
+
+function build(sections) {
+  for (var s of sections) {
+    var schema = {
+      username: 'String'
+    };
+    for (var t of s.body) {
+      if (t.type === 'text') {
+        schema[t.label] = 'String';
+      }
+    }
+    mongoose.model(toRoute(s.title), mongoose.Schema(schema));
+  }
+}
+
 module.exports = {
   toRoute: toRoute,
-  init: init
+  init: init,
+  build: build
 };

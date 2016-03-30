@@ -12,8 +12,6 @@ var passport = require('passport');
 var mongoose = require('mongoose');
 var flash = require('connect-flash');
 
-var routes = require('./routes/index');
-
 var app = express();
 
 // view engine setup
@@ -37,7 +35,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', routes);
+require('./routes')(app);
 
 // passport configuration
 var User = require('./models/user');

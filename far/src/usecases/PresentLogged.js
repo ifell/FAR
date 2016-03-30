@@ -1,42 +1,69 @@
 'use strict';
 
-class PresentLogged {
-  constructor() {
-    this.loggedOut();
-  }
+//class PresentLogged {
+//  constructor() {
+//    this.loggedOut();
+//  }
+//
+//  loggedIn(user) {
+//    this._text = 'Logout ' + user.username;
+//    this._route = '/logout';
+//
+//    this._showSectionsRoute = '/sections';
+//    this._showSectionsText = 'Sections';
+//  }
+//
+//  loggedOut() {
+//    this._text = 'Login';
+//    this._route = '/login';
+//
+//    this._showSectionsRoute = '/';
+//    this._showSectionsText = 'Home';
+//  }
+//
+//  showText() {
+//    return this._text;
+//  }
+//
+//  showRoute() {
+//    return this._route;
+//  }
+//
+//  showSectionsText() {
+//    return this._showSectionsText;
+//  }
+//
+//  showSectionsRoute() {
+//    return this._showSectionsRoute;
+//  }
+//}
 
-  loggedIn(user) {
-    this._text = 'Logout ' + user.username;
-    this._route = '/logout';
-  }
-
-  loggedOut() {
-    this._text = 'Login';
-    this._route = '/login';
-  }
-
-  showText() {
-    return this._text;
-  }
-
-  showRoute() {
-    return this._route;
+function isLoggedIn(req) {
+  if (!req.user) {
+    return {
+      nav: {
+        text: 'Login',
+        route: '/login'
+      },
+      sections: {
+        text: 'Home',
+        route: '/'
+      }
+    };
+  } else {
+    return {
+      nav: {
+        text: 'Logout',
+        route: '/logout'
+      },
+      sections: {
+        text: 'Sections',
+        route: '/sections'
+      }
+    };
   }
 }
 
-//function present (user) {
-//  var present = {};
-//
-//  if (user) {
-//    present.route = '/logout';
-//    present.navbar = 'Logout ' + user.username;
-//    present.body = 'Logged in as: ' + user.username;
-//  } else {
-//    present.route = '/login';
-//    present.navbar = 'Login';
-//  }
-//
-//  return present;
-//}
-
-module.exports = new PresentLogged();
+module.exports = {
+  isLoggedIn: isLoggedIn
+};

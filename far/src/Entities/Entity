@@ -12,6 +12,10 @@ var DefinedEntities = {
     entity.addSection = function(section) {
       entity.sections.set(section.title, section);
     }
+  },
+  Section: function(entity, fields) {
+    entity.title = fields.title || '';
+    entity.body = fields.body || [];
   }
 };
 

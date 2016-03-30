@@ -1,58 +1,48 @@
 'use strict';
 
-var Context = require('../Context');
-
-function alreadyLoggedIn() {
-  return Context.gateKeeper.getLoggedInUser();
-}
-
-class LoginInteractor {
-  constructor() {
-  }
-
-  setContext(context) {
-    Context = context;
-  }
-
-  setPresenter(presenter) {
+module.exports = {
+  setUserGateway: function(userGateway) {
+    this.userGateway = userGateway;
+  },
+  setGateKeeper: function(gateKeeper) {
+    this._gateKeeper = gateKeeper;
+  },
+  setPresenter: function(presenter) {
     this.presenter = presenter;
-  }
-
-  setContractor(contractor) {
+  },
+  setContractor: function(contractor) {
     this._contractor = contractor;
-  }
-
-  login(request) {
+  },
+  login: function(request) {
     var response = {};
     var self = this;
 
-    Context.userGateway.getUserByUsername(request.username, function (user) {
+    this.userGateway.getUserByUsername(request.username, function (user) {
       if (!user) {
         self._contractor.USER_DOESNT_EXIST(request, response);
-      } else if (alreadyLoggedIn()) {
+        self.presenter.present(response);
+      } else if (self._gateKeeper.isLoggedIn()) {
         self._contractor.ALREADY_LOGGED_IN(request, response);
+        self.presenter.present(response);
       } else {
-        self._contractor.VALID_LOGIN_MESSAGE(request, response);
-        Context.gateKeeper.setLoggedInUser(user);
+        self._gateKeeper.login(user, function() {
+          self._contractor.LOGIN_MESSAGE(request, response);
+          self.presenter.present(response);
+        });
       }
-
-      self.presenter.present(response);
     });
-  }
-
-  logout() {
+  },
+  logout: function(request) {
     var response = {};
+    var self = this;
 
-    var user = Context.gateKeeper.getLoggedInUser();
-    if (!user) {
-      this._contractor.ALREADY_LOGGED_OUT(user, response);
+    if (!self._gateKeeper.isLoggedIn()) {
+      self._contractor.ALREADY_LOGGED_OUT(request, response);
     } else {
-      this._contractor.LOGOUT_MESSAGE(user, response);
-      Context.gateKeeper.setLoggedInUser(undefined);
+      self._contractor.LOGOUT_MESSAGE(request, response);
+      self._gateKeeper.logout();
     }
 
-    this.presenter.present(response);
+    self.presenter.present(response);
   }
-}
-
-module.exports = LoginInteractor;
+};
