@@ -1,10 +1,17 @@
 <nav id="nav">
     <div class="innertube">
         <h3>Sections</h3>
+        <form action="/sections/<%= getSection %>/setYear" method="post">
+            <h5>
+                Year:
+                <input type="number" min="0" value="<%= getYear %>" name="year">
+                <input type="submit" value="Retrieve">
+            </h5>
+        </form>
         <ul>
             <% for (var i=0; i<sections.length; i++) { %>
                 <li>
-                    <a href="/sections/<%= toRoute(sections[i].title) %>">
+                    <a id='nav~<%= toRoute(sections[i].title) %>' href="/sections/<%= toRoute(sections[i].title) %>/year/<%= getYear %>">
                         <%= sections[i].title %>
                     </a>
                 </li>
@@ -12,3 +19,71 @@
         </ul>
     </div>
 </nav>
+
+<script>
+    (function() {
+        var models = JSON.parse(JSON.stringify(<%- allModels %>));
+        var sections = JSON.parse(JSON.stringify(<%- s_sections %>));
+
+        for (var s in sections) {
+            var isNotDone = false;
+            if (models[s]) {
+                for (var b in sections[s].body) {
+                    var currentBody = sections[s].body[b];
+
+                    if (currentBody.label) {
+                        if (!models[s][currentBody.label]) {
+                            document.getElementById('nav~' + s).className = 'notDone';
+
+                            if (document.getElementById(currentBody.label)) {
+                                document.getElementById(currentBody.label).style.backgroundColor = 'red';
+                            }
+
+                            isNotDone = true;
+                        } else {
+                            if (document.getElementById(currentBody.label)) {
+                                document.getElementById(currentBody.label).style.backgroundColor = 'green';
+                            }
+                        }
+                    } else if(currentBody.titleRow && currentBody.titleCol) {
+                        for (var r=0; r<currentBody.titleRow.length-1; r++) {
+                            for (var c in currentBody.titleCol) {
+                                if (!models[s][currentBody.titleRow[r] + '-' + currentBody.titleCol[c]]) {
+                                    document.getElementById('nav~' + s).className = 'notDone';
+
+                                    if (document.getElementById(currentBody.titleRow[r] + '-' + currentBody.titleCol[c])) {
+                                        document.getElementById(currentBody.titleRow[r] + '-' + currentBody.titleCol[c]).style.backgroundColor = 'red';
+                                    }
+
+                                    isNotDone = true;
+                                } else {
+                                    if (document.getElementById(currentBody.titleRow[r] + '-' + currentBody.titleCol[c])) {
+                                        document.getElementById(currentBody.titleRow[r] + '-' + currentBody.titleCol[c]).style.backgroundColor = 'green';
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                if (!isNotDone)
+                    document.getElementById('nav~' + s).className = 'done';
+            } else {
+                document.getElementById('nav~' + s).className = 'notDone';
+                for (var b in sections[s].body) {
+                    var currentBody = sections[s].body[b];
+                    if (currentBody.label && document.getElementById(currentBody.label)) {
+                        document.getElementById(currentBody.label).style.backgroundColor = 'red';
+                    } else if (currentBody.titleRow && currentBody.titleCol) {
+                        for (var r=0; r<currentBody.titleRow.length-1; r++) {
+                            for (var c in currentBody.titleCol) {
+                                if (document.getElementById(currentBody.titleRow[r] + '-' + currentBody.titleCol[c])) {
+                                    document.getElementById(currentBody.titleRow[r] + '-' + currentBody.titleCol[c]).style.backgroundColor = 'red';
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }())
+</script>

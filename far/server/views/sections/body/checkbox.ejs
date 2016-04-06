@@ -1,2 +1,6 @@
-<input type="checkbox" name="<%= w.label %>" %> > <%= w.label %>
+<input type="checkbox" name="<%= prev || w.label %>" id="<%= w.label %><%= prev %>" %>
+    <% if (model[w.label]) { %>
+        checked
+    <% } %>
+> <%= w.label %>
 <br>

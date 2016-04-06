@@ -26,9 +26,9 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(session({
   secret: 'keyboard cat',
-  resave: false,
-  saveUninitialized: false,
-  cookie: {maxAge: 60000}
+  resave: true,
+  saveUninitialized: true,
+  cookie: {maxAge: 6000000}
 }));
 app.use(flash());
 app.use(passport.initialize());

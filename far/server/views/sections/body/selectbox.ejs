@@ -1,0 +1,11 @@
+<%= w.label %>:
+<select name="<%= prev || w.label %>" id="<%= w.label %><%= prev %>">
+    <option selected disabled><%= w.label %></option>
+    <% for (var input of w.inputs ) { %>
+        <option value="<%= input %>"
+            <% if (input === model[w.label]) { %>
+                selected
+            <% } %>
+        ><%= input %></option>
+    <% } %>
+</select>

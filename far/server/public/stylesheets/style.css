@@ -57,12 +57,26 @@ p {
 }
 
 nav ul {
+    position: relative;
     list-style-type: none;
     margin: 0;
-    padding: 0;
+    padding: 0px 0px 0px 5px;
 }
 
-nav ul a {
+.notDone:before {
+    content: '✗';
+}
+
+.notDone{
+    color: darkred;
+    text-decoration: none;
+}
+
+.done:before {
+    content: '✔';
+}
+
+.done{
     color: darkgreen;
     text-decoration: none;
 }

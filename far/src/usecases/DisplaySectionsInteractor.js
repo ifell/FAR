@@ -16,34 +16,56 @@ function toRoute(sectionName) {
   return formattedForRoute;
 }
 
-function init(sections) {
+function toLabel(sectionName) {
+  if (sectionName.length < 1) return '';
+  var formattedForLabel = sectionName[0].toUpperCase();
+
+  for (var i = 1; i < sectionName.length; i++) {
+    if (sectionName[i] >= 'A' && sectionName[i] <= 'Z')
+      formattedForLabel += ' ';
+
+    formattedForLabel += sectionName[i];
+  }
+
+  return formattedForLabel;
+}
+
+function toMap(sections) {
   var map = new Map();
 
-  for (var s of sections) {
+  for (var s of sections)
     map.set(toRoute(s.title), s);
-  }
 
   return map;
 }
 
-var mongoose = require('mongoose');
+function toRouteJSON(sections) {
+  var json = {};
 
-function build(sections) {
+  for (var s of sections)
+    json[toRoute(s.title)] = s;
+
+  return json;
+}
+
+function render(sections, SchemaTypes, renderModelCallback) {
   for (var s of sections) {
     var schema = {
-      username: 'String'
+      username: 'String',
+      year: 'Number'
     };
-    for (var t of s.body) {
-      if (t.type === 'text') {
-        schema[t.label] = 'String';
-      }
-    }
-    mongoose.model(toRoute(s.title), mongoose.Schema(schema));
+
+    for (var t of s.body)
+      SchemaTypes[t.type].map(schema, t);
+
+    renderModelCallback(toRoute(s.title), schema);
   }
 }
 
 module.exports = {
   toRoute: toRoute,
-  init: init,
-  build: build
+  toLabel: toLabel,
+  toMap: toMap,
+  toRouteJSON: toRouteJSON,
+  render: render
 };

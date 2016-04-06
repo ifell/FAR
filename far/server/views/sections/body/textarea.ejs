@@ -1,0 +1,15 @@
+<%= w.label %>:
+<textarea autocomplete="off" name="<%= prev || w.label %>" id="<%= w.label %><%= prev %>"><%- model[w.label] %></textarea>
+<br>
+
+<script src="//cdn.ckeditor.com/4.5.8/standard/ckeditor.js"></script>
+<script>
+    CKEDITOR.replace('<%= prev || w.label %>');
+
+    CKEDITOR.on('instanceReady', function(e) {
+        if ('<%= prev %>' && e.editor.name === '<%= w.label %><%= prev %>') {
+            e.editor.setReadOnly();
+        }
+    });
+</script>
+

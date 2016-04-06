@@ -22,7 +22,7 @@ userInteractor.setUserGateway(userGateway);
 loginInteractor.setContractor({
   LOGIN_MESSAGE: function (request, response) {
     response.message = request.username.toUpperCase() + '_LOGGED_IN';
-    response.route = '/sections';
+    response.route = '/sections/name/year/2016';
   },
   USER_DOESNT_EXIST: function (request, response) {
     response.message = 'USER_DOESNT_EXIST';
@@ -30,7 +30,7 @@ loginInteractor.setContractor({
   },
   ALREADY_LOGGED_IN: function (request, response) {
     response.message = 'ALREADY_LOGGED_IN';
-    response.route = '/sections';
+    response.route = '/sections/name/year/2016';
   },
   ALREADY_LOGGED_OUT: function (request, response) {
     response.message = 'ALREADY_LOGGED_OUT';
