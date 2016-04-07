@@ -18,20 +18,6 @@ function toRoute(sectionName) {
   return formattedForRoute;
 }
 
-//function toLabel(sectionName) {
-//  if (sectionName.length < 1) return '';
-//  var formattedForLabel = sectionName[0].toUpperCase();
-//
-//  for (var i = 1; i < sectionName.length; i++) {
-//    if (sectionName[i] >= 'A' && sectionName[i] <= 'Z')
-//      formattedForLabel += ' ';
-//
-//    formattedForLabel += sectionName[i];
-//  }
-//
-//  return formattedForLabel;
-//}
-
 function toMap(sections) {
   var map = new Map();
 
@@ -50,17 +36,25 @@ function toRouteJSON(sections) {
   return json;
 }
 
-function render(sections, SchemaTypes, renderModelCallback) {
+function render(sections, SchemaTypes, ValidatorTypes, renderModelCallback) {
   for (var s of sections) {
     var schema = {
       username: 'String',
       year: 'Number'
     };
 
-    for (var t of s.body)
-      SchemaTypes[t.type].map(schema, t);
+    var validators = {};
 
-    renderModelCallback(toRoute(s.title), schema);
+    for (var t of s.body) {
+      SchemaTypes[t.type].map(schema, t);
+      if (t.validators) {
+        for (var v of t.validators) {
+          validators[v.type] = ValidatorTypes[v.type].get(t);
+        }
+      }
+    }
+
+    renderModelCallback(toRoute(s.title), schema, validators);
   }
 }
 

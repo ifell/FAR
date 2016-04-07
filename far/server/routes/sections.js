@@ -5,6 +5,7 @@ var router = express.Router();
 
 var sections = require('../sections.json');
 var schemaTypes = require('../SchemaTypes');
+var validatorTypes = require('../ValidatorTypes');
 
 var PresentLogged = require('../../src/usecases/PresentLogged');
 
@@ -16,8 +17,19 @@ var DisplaySectionInteractor = require('../../src/usecases/DisplaySectionsIntera
 var sectionsMap = DisplaySectionInteractor.toMap(sections);
 var toRouteJSON = DisplaySectionInteractor.toRouteJSON(sections);
 
-DisplaySectionInteractor.render(sections, schemaTypes, function (name, schema) {
-  mongoose.model(name, mongoose.Schema(schema));
+DisplaySectionInteractor.render(sections, schemaTypes, validatorTypes, function (name, schema, validators) {
+  var section = mongoose.Schema(schema);
+
+  for (var v in validators) {
+    section.pre('save', function (next) {
+      validators[v](this, function(message) {
+        if (message) next(new Error(message));
+        else next();
+      });
+    });
+  }
+
+  mongoose.model(name, section);
 });
 
 router.get('/sections/year/:year', function (req, res, next) {
@@ -84,8 +96,11 @@ router.get('/sections/:section/year/:year', function (req, res, next) {
     getYear: req.params.year || (new Date).getFullYear(),
     getSection: req.params.section,
     getSectionToRoute: JSON.stringify(DisplaySectionInteractor.toRoute(req.params.section)),
-    type: function (type) {
+    body: function (type) {
       return 'body/' + type;
+    },
+    validators: function(type) {
+      return 'validators/' + type;
     }
   };
 
@@ -132,7 +147,7 @@ router.post('/sections/:section/year/:year', function (req, res) {
             req.flash('message', 'saved!');
             return res.redirect('/sections/' + req.params.section + '/year/' + req.params.year);
           } else {
-            req.flash('message', 'something went wrong...');
+            req.flash('message', err.message);
             return res.redirect('/sections/' + req.params.section + '/year/' + req.params.year);
           }
         });
@@ -142,7 +157,7 @@ router.post('/sections/:section/year/:year', function (req, res) {
         }
         doc.save(function (err) {
           if (err) {
-            req.flash('message', 'something went wrong...');
+            req.flash('message', err.message);
             return res.redirect('/sections/' + req.params.section + '/year/' + req.params.year);
           } else {
             req.flash('message', 'saved!');

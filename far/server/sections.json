@@ -68,9 +68,13 @@
     "title": "Assigned Activity",
     "body": [
       {
-        "titleRow": ["Teaching", "Research", "Service", "Total"],
+        "titleRow": ["Teaching", "Research", "Service"],
         "titleCol": ["Spring", "Summer", "Fall"],
-        "type": "table"
+        "type": "table",
+        "validators": [{
+          "type": "sum",
+          "title": "Total"
+        }]
       }
     ],
     "disablePrevious": true

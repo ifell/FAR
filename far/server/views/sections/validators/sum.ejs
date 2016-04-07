@@ -1,0 +1,49 @@
+<table>
+    <tr>
+        <th><%= v.title %></th>
+        <% for (var cols in w.titleCol) { %>
+            <th><input type="number" id="<%= v.title %>-<%= w.titleCol[cols] %><%= prev %>" disabled></th>
+        <% } %>
+    </tr>
+</table>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var w = JSON.parse(JSON.stringify(<%- JSON.stringify(w) %>));
+        var v = JSON.parse(JSON.stringify(<%- JSON.stringify(v) %>));
+
+        function sum() {
+            for (var c in w.titleCol) {
+                var sumId = v.title + '-' + w.titleCol[c];
+                var total = 0;
+                for (var r in w.titleRow) {
+                    var element = document.getElementById(w.titleRow[r] + '-' + w.titleCol[c]);
+                    total += parseInt(element.value);
+                }
+                document.getElementById(sumId).value = total;
+                if (total !== 100) {
+                    document.getElementById(sumId).style.backgroundColor = "yellow";
+                } else {
+                    document.getElementById(sumId).style.backgroundColor = "green";
+                }
+            }
+        }
+
+        (function () {
+            sum();
+
+            for (var c in w.titleCol) {
+                for (var r in w.titleRow) {
+                    var id = w.titleRow[r] + '-' + w.titleCol[c];
+                    var element = document.getElementById(id);
+                    element.addEventListener('keyup', function () {
+                        sum();
+                    });
+                    element.addEventListener('click', function () {
+                        sum();
+                    });
+                }
+            }
+        }())
+    });
+</script>

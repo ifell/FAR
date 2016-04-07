@@ -10,7 +10,12 @@
 
 <div id="docPreview" style="display:none">
     <% section.body.forEach(function(w) { %>
-        <%- include(type(w.type), {w: w, prev: '~prev'}) %>
+    <%- include(body(w.type), {w: w, prev: '~prev'}) %>
+    <% if (w.validators && w.validators.length !== 0) { %>
+    <% w.validators.forEach(function(v) { %>
+    <%- include(validators(v.type), {w: w, v: v, prev: '~prev'}) %>
+    <% }); %>
+    <% } %>
     <% }); %>
     <br>
     <br>
@@ -18,120 +23,102 @@
 
 <form action="/sections/<%= toRoute(section.title) %>/year/<%= getYear %>" method="post">
     <% section.body.forEach(function(w) { %>
-        <%- include(type(w.type), {w: w, prev: ''}) %>
+    <%- include(body(w.type), {w: w, prev: ''}) %>
+    <% if (w.validators && w.validators.length !== 0) { %>
+    <% w.validators.forEach(function(v) { %>
+    <%- include(validators(v.type), {w: w, v: v, prev: ''}) %>
     <% }); %>
+    <% } %>
+    <% }); %>
+    <br>
     <input type="submit" value="submit">
 </form>
 <%- include ./oldFooter %>
 
 <script>
-    (function() {
-        var xhttp = new XMLHttpRequest();
-        var getYear = parseInt("<%= getYear %>");
+    document.addEventListener('DOMContentLoaded', function () {
+        <%- include htmlTypes.js %>
 
-        xhttp.open("GET", "/sections/" + "<%= getSection %>", true);
-        xhttp.send();
+        (function () {
+            var xhttp = new XMLHttpRequest();
+            var getYear = parseInt("<%= getYear %>");
 
-        xhttp.onreadystatechange = function () {
-            if (xhttp.readyState == 4 && xhttp.status == 200) {
-                var previousYears = JSON.parse(xhttp.responseText);
-                previousYears.forEach(function(p) {
-                    if (p.year !== getYear) {
-                        var option = document.createElement("option");
-                        option.text = p.year;
-                        option.value = p.year;
-                        document.getElementById("previousYear").appendChild(option);
-                    }
-                });
-            }
-        }
-    }())
+            xhttp.open("GET", "/sections/" + "<%= getSection %>", true);
+            xhttp.send();
 
-    function switchModel() {
-        var xhttp = new XMLHttpRequest();
-        var previousYear = document.getElementById("previousYear").value;
-
-        xhttp.open("GET", "/d/sections/" + "<%= getSection %>" + "/year/" + previousYear, true);
-        xhttp.send();
-
-        xhttp.onreadystatechange = function () {
-            if (xhttp.readyState == 4 && xhttp.status == 200) {
-                var selectedYear = JSON.parse(xhttp.responseText);
-
-                delete selectedYear.__v;
-                delete selectedYear.year;
-                delete selectedYear.username;
-                delete selectedYear._id;
-
-                for (var key in selectedYear) {
-                    var element = document.getElementById(key + '~prev');
-                    element.disabled = true;
-
-                    if (element.type === "text") {
-                        element.value = selectedYear[key];
-                    } else if (element.type === "checkbox") {
-                        element.checked = selectedYear[key];
-                    } else if (element.type === "select-one") {
-                        element.value = selectedYear[key];
-                    } else if (element.type === "month") {
-                        element.value = selectedYear[key];
-                    } else if (element.type === "number") {
-                        element.value = selectedYear[key];
-                    } else if (element.type === "textarea") {
-                        CKEDITOR.instances[key + '~prev'].setData(selectedYear[key]);
-                    }
-                }
-
-                return document.getElementById("docPreview").style.display = 'inline';
-            }
-        };
-    }
-
-    function setData() {
-        var prev = document.getElementsByName("~prev");
-
-        for (var k = 0; k < prev.length; k++) {
-            var id = prev[k].id.split('~')[0];
-            var element = document.getElementById(id);
-
-            if (element.type === "text") {
-                element.value = prev[k].value;
-            } else if (element.type === "checkbox") {
-                element.checked = prev[k].checked;
-            } else if (element.type === "select-one") {
-                element.value = prev[k].value;
-            } else if (element.type === "month") {
-                element.value = prev[k].value;
-            } else if (element.type === "number") {
-                element.value = prev[k].value;
-            } else if (element.type === "textarea") {
-                CKEDITOR.instances[id].setData(
-                        CKEDITOR.instances[prev[k].id].getData()
-                );
-            }
-        }
-
-        document.getElementById('tooltip').selected = true;
-
-        return document.getElementById("docPreview").style.display = 'none';
-    }
-
-    (function () {
-        var xhttp = new XMLHttpRequest();
-        xhttp.open("GET", "/sections/" + "<%= getSection %>", true);
-        xhttp.send();
-
-        xhttp.onreadystatechange = function () {
-            if (xhttp.readyState == 4 && xhttp.status == 200) {
-                var previousYears = JSON.parse(xhttp.responseText);
-
-                if (previousYears.length === 0 ||
-                        (previousYears.length < 2 && previousYears[0].year === <%= parseInt(getYear) %>) ||
-                        <%= disablePrevious || false %>) {
-                    document.getElementById("previousYear").disabled = true;
-                    document.getElementById("import").disabled = true;
+            xhttp.onreadystatechange = function () {
+                if (xhttp.readyState == 4 && xhttp.status == 200) {
+                    var previousYears = JSON.parse(xhttp.responseText);
+                    previousYears.forEach(function (p) {
+                        if (p.year !== getYear) {
+                            var option = document.createElement("option");
+                            option.text = p.year;
+                            option.value = p.year;
+                            document.getElementById("previousYear").appendChild(option);
+                        }
+                    });
                 }
             }
+        }())
+
+        function switchModel() {
+            var xhttp = new XMLHttpRequest();
+            var previousYear = document.getElementById("previousYear").value;
+
+            xhttp.open("GET", "/d/sections/" + "<%= getSection %>" + "/year/" + previousYear, true);
+            xhttp.send();
+
+            xhttp.onreadystatechange = function () {
+                if (xhttp.readyState == 4 && xhttp.status == 200) {
+                    var selectedYear = JSON.parse(xhttp.responseText);
+
+                    delete selectedYear.__v;
+                    delete selectedYear.year;
+                    delete selectedYear.username;
+                    delete selectedYear._id;
+
+                    for (var key in selectedYear) {
+                        var element = document.getElementById(key + '~prev');
+                        element.disabled = true;
+
+                        htmlTypes[element.type].setDataFromModel(element, key, selectedYear[key]);
+                    }
+
+                    return document.getElementById("docPreview").style.display = 'inline';
+                }
+            };
         }
-    }())
+
+        function setData() {
+            var prev = document.getElementsByName("~prev");
+
+            for (var k = 0; k < prev.length; k++) {
+                var id = prev[k].id.split('~')[0];
+                var element = document.getElementById(id);
+                htmlTypes[element.type].setDataFromElement(element, prev[k]);
+            }
+
+            document.getElementById('tooltip').selected = true;
+            return document.getElementById("docPreview").style.display = 'none';
+        }
+
+        (function () {
+            var xhttp = new XMLHttpRequest();
+            xhttp.open("GET", "/sections/" + "<%= getSection %>", true);
+            xhttp.send();
+
+            xhttp.onreadystatechange = function () {
+                if (xhttp.readyState == 4 && xhttp.status == 200) {
+                    var previousYears = JSON.parse(xhttp.responseText);
+
+                    if (previousYears.length === 0 ||
+                            (previousYears.length < 2 && previousYears[0].year === <%= parseInt(getYear) %>) ||
+                            <%= disablePrevious || false %>) {
+                        document.getElementById("previousYear").disabled = true;
+                        document.getElementById("import").disabled = true;
+                    }
+                }
+            }
+        }())
+    });
 </script>

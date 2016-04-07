@@ -1,7 +1,5 @@
 'use strict';
 
-var escapeHtml = require('escape-html');
-
 module.exports = {
   text: {
     map: function(schema, t) {
@@ -53,12 +51,12 @@ module.exports = {
   },
   table: {
     map: function(schema, field) {
-      for (var row=0; row<field.titleRow.length -1; row++)
+      for (var row=0; row<field.titleRow.length; row++)
         for (var col in field.titleCol)
           schema[field.titleRow[row] + '-' + field.titleCol[col]] = 'Number';
     },
     htmlToSchemaType: function(model, field, body) {
-      for (var row=0; row<field.titleRow.length -1; row++)
+      for (var row=0; row<field.titleRow.length; row++)
         for (var col in field.titleCol)
           model[field.titleRow[row] + '-' + field.titleCol[col]] =
             body[field.titleRow[row] + '-' + field.titleCol[col]];

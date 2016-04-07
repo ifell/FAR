@@ -22,79 +22,61 @@
 </nav>
 
 <script>
-    (function () {
-        var xhttp = new XMLHttpRequest();
-        xhttp.open("GET", "/sections/year/" + <%= getYear %>, true);
-        xhttp.send();
+    document.addEventListener('DOMContentLoaded', function () {
+        <%- include sectionTypes.js %>
 
-        xhttp.onreadystatechange = function () {
-            if (xhttp.readyState == 4 && xhttp.status == 200) {
-                var models = JSON.parse(xhttp.responseText);
-                var sections = JSON.parse(JSON.stringify(<%- s_sections %>));
+        function displayDone(isDone, id) {
+            if (document.getElementById(id)) {
+                document.getElementById(id).style.backgroundColor =
+                        isDone ? 'green' : 'red';
+            }
+        }
 
-                for (var s in sections) {
-                    var isNotDone = false;
-                    if (models[s]) {
-                        for (var b in sections[s].body) {
-                            var currentBody = sections[s].body[b];
-                            if (currentBody.label) {
-                                if (!models[s][currentBody.label]) {
-                                    console.log('nav~' + s);
-                                    document.getElementById('nav~' + s).className = 'notDone';
+        function displayNavDone(isDone, id) {
+            document.getElementById(id).className = isDone ? 'done' : 'notDone';
+        }
 
-                                    if (document.getElementById(currentBody.label)) {
-                                        document.getElementById(currentBody.label).style.backgroundColor = 'red';
+        function getId(ids, currentBody, callback) {
+            ids[currentBody.type].id(currentBody, callback);
+        }
+
+        (function () {
+            var xhttp = new XMLHttpRequest();
+            xhttp.open("GET", "/sections/year/" + <%= getYear %>, true);
+            xhttp.send();
+
+            xhttp.onreadystatechange = function () {
+                if (xhttp.readyState == 4 && xhttp.status == 200) {
+                    var models = JSON.parse(xhttp.responseText);
+                    var sections = JSON.parse(JSON.stringify(<%- s_sections %>));
+
+                    for (var s in sections) {
+                        var isNotDone = false;
+                        if (models[s]) {
+                            for (var b in sections[s].body) {
+                                var currentBody = sections[s].body[b];
+                                getId(sectionTypes, currentBody, function (id) {
+                                    if (!models[s][id]) {
+                                        displayDone(false, id);
+                                        isNotDone = true;
+                                    } else {
+                                        displayDone(true, id);
                                     }
-
-                                    isNotDone = true;
-                                } else {
-                                    if (document.getElementById(currentBody.label)) {
-                                        document.getElementById(currentBody.label).style.backgroundColor = 'green';
-                                    }
-                                }
-                            } else if (currentBody.titleRow && currentBody.titleCol) {
-                                for (var r = 0; r < currentBody.titleRow.length - 1; r++) {
-                                    for (var c in currentBody.titleCol) {
-                                        if (!models[s][currentBody.titleRow[r] + '-' + currentBody.titleCol[c]]) {
-                                            document.getElementById('nav~' + s).className = 'notDone';
-
-                                            if (document.getElementById(currentBody.titleRow[r] + '-' + currentBody.titleCol[c])) {
-                                                document.getElementById(currentBody.titleRow[r] + '-' + currentBody.titleCol[c]).style.backgroundColor = 'red';
-                                            }
-
-                                            isNotDone = true;
-                                        } else {
-                                            if (document.getElementById(currentBody.titleRow[r] + '-' + currentBody.titleCol[c])) {
-                                                document.getElementById(currentBody.titleRow[r] + '-' + currentBody.titleCol[c]).style.backgroundColor = 'green';
-                                            }
-                                        }
-                                    }
-                                }
+                                });
                             }
-                        }
-                        if (!isNotDone)
-                            document.getElementById('nav~' + s).className = 'done';
-                    } else {
-                        document.getElementById('nav~' + s).className = 'notDone';
-                        for (var b in sections[s].body) {
-                            var currentBody = sections[s].body[b];
-                            if (currentBody.label && document.getElementById(currentBody.label)) {
-                                document.getElementById(currentBody.label).style.backgroundColor = 'red';
-                            } else if (currentBody.titleRow && currentBody.titleCol) {
-                                for (var r = 0; r < currentBody.titleRow.length - 1; r++) {
-                                    for (var c in currentBody.titleCol) {
-                                        if (document.getElementById(currentBody.titleRow[r] + '-' + currentBody.titleCol[c])) {
-                                            document.getElementById(currentBody.titleRow[r] + '-' + currentBody.titleCol[c]).style.backgroundColor = 'red';
-                                        }
-                                    }
-                                }
+                            displayNavDone(!isNotDone, 'nav~' + s);
+                        } else {
+                            displayNavDone(false, 'nav~' + s);
+                            for (var b in sections[s].body) {
+                                var currentBody = sections[s].body[b];
+                                getId(sectionTypes, currentBody, function (id) {
+                                    displayDone(false, id);
+                                });
                             }
                         }
                     }
                 }
-
-            }
-        };
-
-    }())
+            };
+        }())
+    });
 </script>

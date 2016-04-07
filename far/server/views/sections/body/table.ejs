@@ -1,4 +1,4 @@
-<table id="table">
+<table>
     <tr>
         <th></th>
         <% for (var c=0; c<w.titleCol.length; c++) { %>
@@ -9,36 +9,10 @@
     <tr>
         <th><%= w.titleRow[r] %></th>
         <% for (var c=0; c<w.titleCol.length; c++) { %>
-            <th name="value<%= prev %>"><input type="number" name="<%= prev || (w.titleRow[r] + '-' + w.titleCol[c]) %>"
+            <th><input type="number" name="<%= prev || (w.titleRow[r] + '-' + w.titleCol[c]) %>"
                        id="<%= w.titleRow[r] + '-' + w.titleCol[c] %><%= prev %>"
-                       value="<%= model[w.titleRow[r] + '-' + w.titleCol[c]] || 0%>" min="0" max="100">%</th>
+                       value="<%= model[w.titleRow[r] + '-' + w.titleCol[c]] || 0%>" min="0" max="100"></th>
         <% } %>
     </tr>
     <% } %>
 </table>
-
-<script>
-    function validator() {
-        var w = JSON.parse(JSON.stringify(<%- JSON.stringify(w) %>));
-        for (var c in w.titleCol) {
-            if (document.getElementById(w.titleRow[w.titleRow.length-1] + '-' + w.titleCol[c])) {
-                var total = 0;
-                for (var r = 0; r < w.titleRow.length - 1; r++) {
-                    total += parseInt(document.getElementById(w.titleRow[r] + '-' + w.titleCol[c]).value);
-                }
-                document.getElementById(w.titleRow[w.titleRow.length - 1] + '-' + w.titleCol[c]).disabled = "true";
-                document.getElementById(w.titleRow[w.titleRow.length - 1] + '-' + w.titleCol[c]).value = total;
-                if (total !== 100) {
-                    document.getElementById(w.titleRow[w.titleRow.length - 1] + '-' + w.titleCol[c]).style.backgroundColor = "yellow";
-                } else {
-                    document.getElementById(w.titleRow[w.titleRow.length - 1] + '-' + w.titleCol[c]).style.backgroundColor = "green";
-                }
-            }
-        }
-    }
-
-    (function() {
-        validator();
-        setInterval(validator, 500);
-    }())
-</script>
