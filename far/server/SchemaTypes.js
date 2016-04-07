@@ -8,7 +8,15 @@ module.exports = {
       schema[t.label] = 'String';
     },
     htmlToSchemaType: function(model, field, body) {
-      model[field.label] = escapeHtml(body[field.label]);
+      model[field.label] = body[field.label];
+    }
+  },
+  number: {
+    map: function(schema, t) {
+      schema[t.label] = 'Number';
+    },
+    htmlToSchemaType: function(model, field, body) {
+      model[field.label] = body[field.label];
     }
   },
   textarea: {
@@ -16,7 +24,7 @@ module.exports = {
       schema[t.label] = 'String';
     },
     htmlToSchemaType: function(model, field, body) {
-      model[field.label] = escapeHtml(body[field.label]);
+      model[field.label] = body[field.label];
     }
   },
   checkbox: {
@@ -24,7 +32,7 @@ module.exports = {
       schema[t.label] = 'Boolean';
     },
     htmlToSchemaType: function(model, field, body) {
-      model[field.label] = escapeHtml(body[field.label]) === 'on';
+      model[field.label] = body[field.label] === 'on';
     }
   },
   selectbox: {
@@ -32,7 +40,7 @@ module.exports = {
       schema[t.label] = 'String';
     },
     htmlToSchemaType: function(model, field, body) {
-      model[field.label] = escapeHtml(body[field.label]);
+      model[field.label] = body[field.label];
     }
   },
   monthAndYear: {
@@ -40,7 +48,7 @@ module.exports = {
       schema[t.label] = 'String';
     },
     htmlToSchemaType: function(model, field, body) {
-      model[field.label] = escapeHtml(body[field.label]);
+      model[field.label] = body[field.label];
     }
   },
   table: {
@@ -53,7 +61,7 @@ module.exports = {
       for (var row=0; row<field.titleRow.length -1; row++)
         for (var col in field.titleCol)
           model[field.titleRow[row] + '-' + field.titleCol[col]] =
-            escapeHtml(body[field.titleRow[row] + '-' + field.titleCol[col]]);
+            body[field.titleRow[row] + '-' + field.titleCol[col]];
     }
   }
 };

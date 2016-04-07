@@ -5,9 +5,11 @@ function toRoute(sectionName) {
   var formattedForRoute = sectionName[0].toLowerCase();
 
   for (var i = 1; i < sectionName.length; i++) {
-    if (sectionName[i] === ' ') {
-      formattedForRoute += sectionName[i + 1].toUpperCase();
-      i += 1;
+    if (sectionName[i] === ' ' || sectionName[i] === '/' || sectionName[i] === ',') {
+      if (sectionName[i+1] !== ' ' && sectionName[i+1] !== '/' && sectionName[i+1] !== ',') {
+        formattedForRoute += sectionName[i + 1].toUpperCase();
+        i += 1;
+      }
     } else {
       formattedForRoute += sectionName[i];
     }
@@ -16,19 +18,19 @@ function toRoute(sectionName) {
   return formattedForRoute;
 }
 
-function toLabel(sectionName) {
-  if (sectionName.length < 1) return '';
-  var formattedForLabel = sectionName[0].toUpperCase();
-
-  for (var i = 1; i < sectionName.length; i++) {
-    if (sectionName[i] >= 'A' && sectionName[i] <= 'Z')
-      formattedForLabel += ' ';
-
-    formattedForLabel += sectionName[i];
-  }
-
-  return formattedForLabel;
-}
+//function toLabel(sectionName) {
+//  if (sectionName.length < 1) return '';
+//  var formattedForLabel = sectionName[0].toUpperCase();
+//
+//  for (var i = 1; i < sectionName.length; i++) {
+//    if (sectionName[i] >= 'A' && sectionName[i] <= 'Z')
+//      formattedForLabel += ' ';
+//
+//    formattedForLabel += sectionName[i];
+//  }
+//
+//  return formattedForLabel;
+//}
 
 function toMap(sections) {
   var map = new Map();
@@ -64,7 +66,6 @@ function render(sections, SchemaTypes, renderModelCallback) {
 
 module.exports = {
   toRoute: toRoute,
-  toLabel: toLabel,
   toMap: toMap,
   toRouteJSON: toRouteJSON,
   render: render

@@ -74,5 +74,64 @@
       }
     ],
     "disablePrevious": true
+  },
+  {
+    "title": "Teaching, Advising And/Or Instructional Accomplishments",
+    "body": [
+      {
+        "label": "text",
+        "type": "textarea"
+      }
+    ]
+  },
+  {
+    "title": "Teaching Evaluations",
+    "body": [
+      {
+        "label": "course",
+        "type": "text"
+      },
+      {
+        "label": "semester",
+        "type": "selectbox",
+        "inputs": [
+          "Spring",
+          "Fall",
+          "Summer"
+        ]
+      },
+      {
+        "label": "required",
+        "type": "checkbox"
+      },
+      {
+        "label": "enrolled",
+        "type": "number",
+        "min": 0
+      },
+      {
+        "label": "responses",
+        "type": "number",
+        "min": 0
+      },
+      {
+        "titleRow": [
+          "1. Description of course objectives and assignments",
+          "2. Communication of ideas and information",
+          "3. Expression of expectations for performance in this class",
+          "4. Availability to assist students in or out of class",
+          "5. Respect and concern for students",
+          "6. Stimulation of interest in course",
+          "7. Facilitation of learning",
+          "8. Enthusiasm for the subject",
+          "9. Encouragement of independent, creative, and critical thinking",
+          "10. Instructor Overall"
+        ],
+        "titleCol": ["Mean", "Dept Mean", "College Mean"],
+        "type": "table"
+      }
+    ],
+    "disablePrevious": true,
+    "multiple": true
   }
 ]

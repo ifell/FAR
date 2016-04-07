@@ -12,14 +12,63 @@ var _ = require('underscore');
 
 var mongoose = require('mongoose');
 
-var escapeHtml = require('escape-html');
-
 var DisplaySectionInteractor = require('../../src/usecases/DisplaySectionsInteractor');
 var sectionsMap = DisplaySectionInteractor.toMap(sections);
 var toRouteJSON = DisplaySectionInteractor.toRouteJSON(sections);
 
-DisplaySectionInteractor.render(sections, schemaTypes, function(name, schema) {
+DisplaySectionInteractor.render(sections, schemaTypes, function (name, schema) {
   mongoose.model(name, mongoose.Schema(schema));
+});
+
+router.get('/sections/year/:year', function (req, res, next) {
+  if (req.user) {
+    var entireReport = {};
+    var queriesToGo = sections.length;
+
+    for (var s in sections) {
+      var sectionName = DisplaySectionInteractor.toRoute(sections[s].title);
+      var DynamicModel = mongoose.model(sectionName);
+      (function (sn) {
+        DynamicModel.findOne({username: req.user.username, year: req.params.year}, function (err, model) {
+          if (!model) {
+            entireReport[sn] = undefined;
+          } else {
+            entireReport[sn] = model;
+          }
+          if (--queriesToGo === 0) {
+            return res.jsonp(entireReport);
+          }
+        });
+      }(sectionName))
+    }
+  } else {
+    req.flash('message', 'Please log in...');
+    return res.redirect('/login');
+  }
+});
+
+router.get('/sections/:section', function (req, res, next) {
+  if (req.user) {
+    var DynamicModel = mongoose.model(req.params.section);
+    DynamicModel.find({username: req.user.username}, function (err, models) {
+      res.jsonp(models);
+    }).sort({year: -1});
+  } else {
+    req.flash('message', 'Please log in...');
+    return res.redirect('/login');
+  }
+});
+
+router.get('/d/sections/:section/year/:year', function (req, res, next) {
+  if (req.user) {
+    var DynamicModel = mongoose.model(req.params.section);
+    DynamicModel.findOne({username: req.user.username, year: req.params.year}, function (err, model) {
+      return res.jsonp(model);
+    }).sort({year: -1});
+  } else {
+    req.flash('message', 'Please log in...');
+    return res.redirect('/login');
+  }
 });
 
 router.get('/sections/:section/year/:year', function (req, res, next) {
@@ -41,52 +90,13 @@ router.get('/sections/:section/year/:year', function (req, res, next) {
   };
 
   if (req.user) {
-    var entireReport = {};
-    var queriesToGo = sections.length;
-
-    for (var s in sections) {
-      var sectionName = DisplaySectionInteractor.toRoute(sections[s].title);
-      var DynamicModel = mongoose.model(sectionName);
-      // todo: fix performance issue related to multiple closures
-      // anonymous function needed to keep sectionName the same when the callback returns
-      (function(sn) {
-        DynamicModel.findOne({username: req.user.username, year: req.params.year}, function(err, model) {
-          if (!model) {
-            entireReport[sn] = undefined;
-          } else {
-            //var body = sectionsMap.get(sn).body;
-            //for (var b in body) {
-            //  if (body[b].label) {
-            //    model[body[b].label] = escapeHtml(model[body[b].label]);
-            //  } else if (body[b].titleRow && body[b].titleCol) {
-            //  }
-            //}
-            //console.log(model);
-            entireReport[sn] = model;
-          }
-
-          if(--queriesToGo === 0) {
-            return renderJSON['allModels'] = JSON.stringify(entireReport);
-          }
-        });
-      }(sectionName))
-    }
-  }
-
-  if (req.user) {
     var DynamicModel = mongoose.model(req.params.section);
-    DynamicModel.find({username: req.user.username}, function (err, models) {
-      if (!models) {
+    DynamicModel.findOne({username: req.user.username, year: req.params.year}, function (err, model) {
+      if (!model) {
         return res.render('sections/section', _.extend(renderJSON, {model: {}}));
       } else {
-        var currentYearModel;
-        for (var m in models) {
-          if (models[m].year === parseInt(req.params.year)) {
-            currentYearModel = models[m];
-          }
-        }
         return res.render('sections/section', _.extend(renderJSON, {
-          model: currentYearModel || {}, previousYears: models, previousYears2: JSON.stringify(models)
+          model: model || {}
         }));
       }
     }).sort({year: -1});
@@ -130,7 +140,7 @@ router.post('/sections/:section/year/:year', function (req, res) {
         for (var key in model) {
           doc[key] = model[key];
         }
-        doc.save(function(err) {
+        doc.save(function (err) {
           if (err) {
             req.flash('message', 'something went wrong...');
             return res.redirect('/sections/' + req.params.section + '/year/' + req.params.year);

@@ -1,0 +1,3 @@
+<%= w.label %>:
+<input type="number" min="<%= w.min !== undefined ? w.min : '' %>" max="<%= w.max !== undefined ? w.max : '' %>" autocomplete="off" name="<%= prev || w.label %>" id="<%= w.label %><%= prev %>" value="<%= model[w.label] %>">
+<br>
