@@ -22,7 +22,7 @@ DisplaySectionInteractor.render(sections, schemaTypes, validatorTypes, function 
 
   for (var v in validators) {
     section.pre('save', function (next) {
-      validators[v](this, function(message) {
+      validators[v](this, function (message) {
         if (message) next(new Error(message));
         else next();
       });
@@ -30,6 +30,139 @@ DisplaySectionInteractor.render(sections, schemaTypes, validatorTypes, function 
   }
 
   mongoose.model(name, section);
+});
+
+var phantom = require('phantom');
+
+function generatePdfFromHtml(html, path, done) {
+  phantom.create().then(function (ph) {
+    ph.createPage().then(function (page) {
+      page.property('viewportSize', {width: 800, height: 600}).then(function () {
+        page.property('content', html).then(function () {
+          page.render(path, {
+            format: 'pdf',
+            quality: '100'
+          }).then(function (wasGenerated) {
+            page.close();
+            ph.exit();
+            done();
+          });
+        });
+      });
+    });
+  });
+}
+
+var swig = require('swig');
+
+function buildSectionBody(title, section, username, result) {
+  if (title === 'affiliateAppointments' || title === 'teachingAdvisingAndOrInstructionalAccomplishments') {
+    var path = __dirname + '/tmp/' + username + section.year + title + '.pdf';
+    generatePdfFromHtml(section.text, path, function() {
+      return swig.renderFile(__dirname + '/latex/' + title + '.tex', {path: path}, result);
+    });
+  } else if (title === 'assignedActivity' || title === 'teachingEvaluations') {
+    console.log(section);
+    return swig.renderFile(__dirname + '/latex/' + title + '.tex', {s:section}, result);
+  } else if (section) {
+    return swig.renderFile(__dirname + '/latex/' + title + '.tex', section, result);
+  } else {
+    return swig.renderFile(__dirname + '/latex/notFinished.tex', {}, result);
+  }
+}
+
+function buildSections(entireReport, username, callback) {
+  var obj = {};
+  var queriesToGo = Object.keys(entireReport).length;
+
+  for (var title in entireReport) {
+    (function(title) {
+      buildSectionBody(
+        DisplaySectionInteractor.toRoute(title),
+        entireReport[title],
+        username, function (err, result) {
+          swig.renderFile(__dirname + '/latex/title.tex', {
+            title: title, body: result
+          }, function(err, result) {
+            obj[DisplaySectionInteractor.toRoute(title)] = result;
+            if (--queriesToGo === 0) {
+              callback(obj);
+            }
+          });
+        }
+      );
+    }(title));
+  }
+}
+
+function renderLatex(year, username, entireReport, callback) {
+  buildSections(entireReport, username, function(result) {
+    var orderedResult = '';
+    var keyItr = sectionsMap.keys();
+    for (var k of keyItr) {
+      orderedResult += result[k];
+    }
+    swig.renderFile(__dirname + '/latex/main.tex', {
+      year: year,
+      body: orderedResult
+    }, function (err, output) {
+      callback(output);
+    });
+  });
+}
+
+router.get('/downloadreport/year/:year', function (req, res, next) {
+  console.log('downloading ' + req.params.year);
+
+  if (req.user) {
+    var entireReport = {};
+    var queriesToGo = sections.length;
+
+    for (var s in sections) {
+      var sectionName = DisplaySectionInteractor.toRoute(sections[s].title);
+      var DynamicModel = mongoose.model(sectionName);
+      (function (sn) {
+        DynamicModel.findOne({username: req.user.username, year: req.params.year}, function (err, model) {
+          if (!model) {
+            entireReport[sn] = undefined;
+          } else {
+            entireReport[sn] = model;
+          }
+          if (--queriesToGo === 0) {
+            // generate report with entireReport data
+            renderLatex(req.params.year, req.user.username, entireReport, function (output) {
+              var pdf = [];
+
+              var s_pdf = require('latex')([
+                output
+              ]);
+
+              s_pdf.on('data', (chunk) => {
+                pdf.push(chunk);
+              });
+
+              var filename = req.params.year + req.user.username + 'report';
+
+              s_pdf.on('end', () => {
+                pdf = Buffer.concat(pdf);
+
+                res.writeHead(200, {
+                  'Content-Type': 'application/pdf',
+                  'Content-Disposition': 'attachment; filename=' + filename,
+                  'Content-Length': pdf.length
+                });
+
+                res.end(pdf);
+              });
+            });
+          }
+        });
+      }(sections[s].title))
+    }
+  } else {
+    req.flash('message', 'Please log in...');
+    return res.redirect('/login');
+  }
 });
 
 router.get('/sections/year/:year', function (req, res, next) {
@@ -99,7 +232,7 @@ router.get('/sections/:section/year/:year', function (req, res, next) {
     body: function (type) {
       return 'body/' + type;
     },
-    validators: function(type) {
+    validators: function (type) {
       return 'validators/' + type;
     }
   };

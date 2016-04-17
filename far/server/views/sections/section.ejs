@@ -10,12 +10,12 @@
 
 <div id="docPreview" style="display:none">
     <% section.body.forEach(function(w) { %>
-    <%- include(body(w.type), {w: w, prev: '~prev'}) %>
-    <% if (w.validators && w.validators.length !== 0) { %>
-    <% w.validators.forEach(function(v) { %>
-    <%- include(validators(v.type), {w: w, v: v, prev: '~prev'}) %>
-    <% }); %>
-    <% } %>
+        <%- include(body(w.type), {w: w, prev: '~prev'}) %>
+        <% if (w.validators && w.validators.length !== 0) { %>
+            <% w.validators.forEach(function(v) { %>
+                <%- include(validators(v.type), {w: w, v: v, prev: '~prev'}) %>
+            <% }); %>
+        <% } %>
     <% }); %>
     <br>
     <br>
@@ -23,12 +23,12 @@
 
 <form action="/sections/<%= toRoute(section.title) %>/year/<%= getYear %>" method="post">
     <% section.body.forEach(function(w) { %>
-    <%- include(body(w.type), {w: w, prev: ''}) %>
-    <% if (w.validators && w.validators.length !== 0) { %>
-    <% w.validators.forEach(function(v) { %>
-    <%- include(validators(v.type), {w: w, v: v, prev: ''}) %>
-    <% }); %>
-    <% } %>
+        <%- include(body(w.type), {w: w, prev: ''}) %>
+        <% if (w.validators && w.validators.length !== 0) { %>
+            <% w.validators.forEach(function(v) { %>
+                <%- include(validators(v.type), {w: w, v: v, prev: ''}) %>
+            <% }); %>
+        <% } %>
     <% }); %>
     <br>
     <input type="submit" value="submit">
@@ -36,9 +36,50 @@
 <%- include ./oldFooter %>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        <%- include htmlTypes.js %>
+    <%- include htmlTypes.js %>
 
+    function switchModel() {
+        var xhttp = new XMLHttpRequest();
+        var previousYear = document.getElementById("previousYear").value;
+
+        xhttp.open("GET", "/d/sections/" + "<%= getSection %>" + "/year/" + previousYear, true);
+        xhttp.send();
+
+        xhttp.onreadystatechange = function () {
+            if (xhttp.readyState == 4 && xhttp.status == 200) {
+                var selectedYear = JSON.parse(xhttp.responseText);
+
+                delete selectedYear.__v;
+                delete selectedYear.year;
+                delete selectedYear.username;
+                delete selectedYear._id;
+
+                for (var key in selectedYear) {
+                    var element = document.getElementById(key + '~prev');
+                    element.disabled = true;
+
+                    htmlTypes[element.type].setDataFromModel(element, key, selectedYear[key]);
+                }
+
+                return document.getElementById("docPreview").style.display = 'inline';
+            }
+        };
+    }
+
+    function setData() {
+        var prev = document.getElementsByName("~prev");
+
+        for (var k = 0; k < prev.length; k++) {
+            var id = prev[k].id.split('~')[0];
+            var element = document.getElementById(id);
+            htmlTypes[element.type].setDataFromElement(element, prev[k]);
+        }
+
+        document.getElementById('tooltip').selected = true;
+        return document.getElementById("docPreview").style.display = 'none';
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
         (function () {
             var xhttp = new XMLHttpRequest();
             var getYear = parseInt("<%= getYear %>");
@@ -59,48 +100,7 @@
                     });
                 }
             }
-        }())
-
-        function switchModel() {
-            var xhttp = new XMLHttpRequest();
-            var previousYear = document.getElementById("previousYear").value;
-
-            xhttp.open("GET", "/d/sections/" + "<%= getSection %>" + "/year/" + previousYear, true);
-            xhttp.send();
-
-            xhttp.onreadystatechange = function () {
-                if (xhttp.readyState == 4 && xhttp.status == 200) {
-                    var selectedYear = JSON.parse(xhttp.responseText);
-
-                    delete selectedYear.__v;
-                    delete selectedYear.year;
-                    delete selectedYear.username;
-                    delete selectedYear._id;
-
-                    for (var key in selectedYear) {
-                        var element = document.getElementById(key + '~prev');
-                        element.disabled = true;
-
-                        htmlTypes[element.type].setDataFromModel(element, key, selectedYear[key]);
-                    }
-
-                    return document.getElementById("docPreview").style.display = 'inline';
-                }
-            };
-        }
-
-        function setData() {
-            var prev = document.getElementsByName("~prev");
-
-            for (var k = 0; k < prev.length; k++) {
-                var id = prev[k].id.split('~')[0];
-                var element = document.getElementById(id);
-                htmlTypes[element.type].setDataFromElement(element, prev[k]);
-            }
-
-            document.getElementById('tooltip').selected = true;
-            return document.getElementById("docPreview").style.display = 'none';
-        }
+        }());
 
         (function () {
             var xhttp = new XMLHttpRequest();
@@ -119,6 +119,6 @@
                     }
                 }
             }
-        }())
+        }());
     });
 </script>

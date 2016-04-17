@@ -51,12 +51,12 @@ module.exports = {
   },
   table: {
     map: function(schema, field) {
-      for (var row=0; row<field.titleRow.length; row++)
+      for (var row in field.titleRow)
         for (var col in field.titleCol)
           schema[field.titleRow[row] + '-' + field.titleCol[col]] = 'Number';
     },
     htmlToSchemaType: function(model, field, body) {
-      for (var row=0; row<field.titleRow.length; row++)
+      for (var row in field.titleRow)
         for (var col in field.titleCol)
           model[field.titleRow[row] + '-' + field.titleCol[col]] =
             body[field.titleRow[row] + '-' + field.titleCol[col]];

@@ -19,6 +19,9 @@
             <% } %>
         </ul>
     </div>
+    <form action="/downloadreport/year/<%= getYear %>">
+        <input type="submit" value="Generate Report">
+    </form>
 </nav>
 
 <script>
@@ -56,7 +59,7 @@
                             for (var b in sections[s].body) {
                                 var currentBody = sections[s].body[b];
                                 getId(sectionTypes, currentBody, function (id) {
-                                    if (!models[s][id]) {
+                                    if (models[s][id] === undefined) {
                                         displayDone(false, id);
                                         isNotDone = true;
                                     } else {
