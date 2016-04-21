@@ -57,13 +57,12 @@ function generatePdfFromHtml(html, path, done) {
 var swig = require('swig');
 
 function buildSectionBody(title, section, username, result) {
-  if (title === 'affiliateAppointments' || title === 'teachingAdvisingAndOrInstructionalAccomplishments') {
+  if (section && section.year && (title === 'affiliateAppointments' || title === 'teachingAdvisingAndOrInstructionalAccomplishments')) {
     var path = __dirname + '/tmp/' + username + section.year + title + '.pdf';
     generatePdfFromHtml(section.text, path, function() {
       return swig.renderFile(__dirname + '/latex/' + title + '.tex', {path: path}, result);
     });
-  } else if (title === 'assignedActivity' || title === 'teachingEvaluations') {
-    console.log(section);
+  } else if (section && (title === 'assignedActivity' || title === 'teachingEvaluations')) {
     return swig.renderFile(__dirname + '/latex/' + title + '.tex', {s:section}, result);
   } else if (section) {
     return swig.renderFile(__dirname + '/latex/' + title + '.tex', section, result);

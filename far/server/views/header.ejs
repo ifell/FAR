@@ -8,6 +8,10 @@
 
 <body>
 
+<div id="hideme">
+    <%= notifications %>
+</div>
+
 <header id="header">
     <div class="innertube">
         <h1><%= title %></h1>
@@ -20,6 +24,16 @@
         </div>
     </div>
 </header>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        (function() {
+            setTimeout(function() {
+                document.getElementById('hideme').innerHTML = '';
+            }, 5000);
+        }());
+    });
+</script>
 
 <div id="wrapper">
     <main>
