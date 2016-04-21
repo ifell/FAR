@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!-- Template by quackit.com -->
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -11,12 +10,12 @@
 
 <header id="header">
     <div class="innertube">
-        <h1><%= title %> <%= notifications %></h1>
+        <h1><%= title %></h1>
         <div id="navbar">
             <ul>
-                <li><a class="active" href=<%= present.sections.route %> ><%= present.sections.text %></a></li>
-                <li><a href=<%= present.nav.route %> ><%= present.nav.text %></a></li>
-                <li><a href="/about">About</a></li>
+                <li><a id="select1" class={{selectActive}} href=<%= present.sections.route %> ><%= present.sections.text %></a></li>
+                <li><a id="select2" class={{selectActive}} href=<%= present.nav.route %> ><%= present.nav.text %></a></li>
+                <li><a id="select3" class={{selectActive}} href="/about">About</a></li>
             </ul>
         </div>
     </div>

@@ -58,7 +58,7 @@ function isLoggedIn(req) {
       },
       sections: {
         text: 'Sections',
-        route: '/sections'
+        route: '/sections/name/year/2016'
       }
     };
   }

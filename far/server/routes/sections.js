@@ -43,6 +43,7 @@ function generatePdfFromHtml(html, path, done) {
             format: 'pdf',
             quality: '100'
           }).then(function (wasGenerated) {
+            console.log(wasGenerated);
             page.close();
             ph.exit();
             done();
