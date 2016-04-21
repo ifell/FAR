@@ -1,5 +1,6 @@
 # FAR
-Documentation
+<b>Documentation</b>
+<hr>
 There are several configuration files throughout the directory of the application. There are 3 located in the /server directory labeled "ValidatorTypes.js" "sections.json" and "SchemaTypes.js". The sections.json configuration file specifies the fields that are present in the report. An example is given below...
 ``` json
 [
